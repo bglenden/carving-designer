@@ -1,5 +1,9 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { PersistenceManager, DesignData, DesignMetadata } from '../../src/persistence/PersistenceManager.js';
+import {
+  PersistenceManager,
+  DesignData,
+  DesignMetadata,
+} from '../../src/persistence/PersistenceManager.js';
 
 describe('PersistenceManager', () => {
   let manager: PersistenceManager;
@@ -26,7 +30,7 @@ describe('PersistenceManager', () => {
       const designData: DesignData = {
         version: '1.0',
         shapes: [],
-        backgroundImages: []
+        backgroundImages: [],
       };
 
       expect(designData.version).toBe('1.0');
@@ -40,14 +44,14 @@ describe('PersistenceManager', () => {
         author: 'Test Author',
         created: '2023-01-01',
         modified: '2023-01-02',
-        description: 'A test design for validation'
+        description: 'A test design for validation',
       };
 
       const designData: DesignData = {
         version: '1.0',
         shapes: [],
         backgroundImages: [],
-        metadata
+        metadata,
       };
 
       expect(designData.metadata).toEqual(metadata);
@@ -63,8 +67,8 @@ describe('PersistenceManager', () => {
             type: 'LEAF',
             center: { x: 100, y: 200 },
             rotation: 45,
-            selected: false
-          } as any
+            selected: false,
+          } as any,
         ],
         backgroundImages: [
           {
@@ -75,13 +79,13 @@ describe('PersistenceManager', () => {
             scale: 1,
             opacity: 0.5,
             naturalWidth: 100,
-            naturalHeight: 100
-          }
+            naturalHeight: 100,
+          },
         ],
         metadata: {
           name: 'Complex Design',
-          description: 'A design with shapes and background'
-        }
+          description: 'A design with shapes and background',
+        },
       };
 
       expect(designData.shapes).toHaveLength(1);
@@ -100,10 +104,10 @@ describe('PersistenceManager', () => {
             type: 'TRI_ARC',
             center: { x: 150, y: 250 },
             radius: 50,
-            selected: false
-          } as any
+            selected: false,
+          } as any,
         ],
-        backgroundImages: []
+        backgroundImages: [],
       };
 
       const json = JSON.stringify(designData, null, 2);
@@ -120,7 +124,7 @@ describe('PersistenceManager', () => {
       const designData: DesignData = {
         version: '1.0',
         shapes: [],
-        backgroundImages: []
+        backgroundImages: [],
       };
 
       const json = JSON.stringify(designData, null, 2);
@@ -140,8 +144,8 @@ describe('PersistenceManager', () => {
           name: 'Serialization Test',
           author: 'Test Suite',
           created: new Date().toISOString(),
-          description: 'Testing JSON serialization'
-        }
+          description: 'Testing JSON serialization',
+        },
       };
 
       const json = JSON.stringify(designData, null, 2);
@@ -156,10 +160,10 @@ describe('PersistenceManager', () => {
   describe('file handle management', () => {
     it('can store file handle reference', () => {
       const mockHandle = { name: 'test.json' } as FileSystemFileHandle;
-      
+
       // Direct assignment since _setHandle is private
       manager.fileHandle = mockHandle;
-      
+
       expect(manager.fileHandle).toBe(mockHandle);
       expect(manager.fileHandle.name).toBe('test.json');
     });
@@ -167,9 +171,9 @@ describe('PersistenceManager', () => {
     it('can clear file handle', () => {
       const mockHandle = { name: 'test.json' } as FileSystemFileHandle;
       manager.fileHandle = mockHandle;
-      
+
       manager.fileHandle = null;
-      
+
       expect(manager.fileHandle).toBeNull();
     });
   });
@@ -183,8 +187,8 @@ describe('PersistenceManager', () => {
         backgroundImages: [],
         metadata: {
           name: 'Test with "quotes" and special chars: <>{}[]',
-          description: 'Line 1\nLine 2\tTabbed'
-        }
+          description: 'Line 1\nLine 2\tTabbed',
+        },
       };
 
       const json = JSON.stringify(designData);
@@ -198,7 +202,7 @@ describe('PersistenceManager', () => {
       const designData: DesignData = {
         version: '1.0',
         shapes: [],
-        backgroundImages: []
+        backgroundImages: [],
       };
 
       expect(typeof designData.version).toBe('string');
@@ -214,12 +218,12 @@ describe('PersistenceManager', () => {
         author: 'TypeScript',
         created: '2023-01-01T00:00:00Z',
         modified: '2023-01-02T00:00:00Z',
-        description: 'Testing type definitions'
+        description: 'Testing type definitions',
       };
 
       // All fields are optional
       const minimalMetadata: DesignMetadata = {};
-      
+
       expect(metadata.name).toBeDefined();
       expect(minimalMetadata.name).toBeUndefined();
     });
@@ -228,14 +232,14 @@ describe('PersistenceManager', () => {
       const designData: DesignData = {
         version: '1.0',
         shapes: [],
-        backgroundImages: []
+        backgroundImages: [],
       };
 
       // Required fields
       expect(designData.version).toBeDefined();
       expect(designData.shapes).toBeDefined();
       expect(designData.backgroundImages).toBeDefined();
-      
+
       // Optional metadata
       expect(designData.metadata).toBeUndefined();
     });
@@ -248,8 +252,8 @@ describe('PersistenceManager', () => {
         {
           type: 'LEAF',
           center: { x: 100, y: 200 },
-          rotation: 45
-        }
+          rotation: 45,
+        },
       ];
 
       // This tests that the structure is compatible with createShape expectations
@@ -266,13 +270,13 @@ describe('PersistenceManager', () => {
             type: 'LEAF',
             center: { x: 100, y: 200 },
             rotation: 45,
-            selected: false
-          } as any
+            selected: false,
+          } as any,
         ],
         backgroundImages: [],
         metadata: {
-          name: 'New Format Test'
-        }
+          name: 'New Format Test',
+        },
       };
 
       expect(newFormatData.version).toBeDefined();

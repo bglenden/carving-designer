@@ -10,11 +10,11 @@ global.Image = class MockImage {
   naturalHeight = 80;
   src = '';
   complete = false;
-  
+
   constructor() {
     // Nothing here - loading triggered by setting src
   }
-  
+
   set src(value: string) {
     this['_src'] = value;
     if (value && value !== '') {
@@ -27,7 +27,7 @@ global.Image = class MockImage {
       }, 0);
     }
   }
-  
+
   get src() {
     return this['_src'] || '';
   }
@@ -43,7 +43,7 @@ global.Blob = class MockBlob {
 
 // Mock performance
 global.performance = {
-  now: () => Date.now()
+  now: () => Date.now(),
 } as any;
 
 // Mock document for event dispatching
@@ -68,7 +68,7 @@ const mockCanvas = {
     setLineDash: vi.fn(),
     moveTo: vi.fn(),
     lineTo: vi.fn(),
-  }))
+  })),
 };
 
 global.document = {
@@ -93,8 +93,8 @@ global.document = {
     return {};
   }),
   body: {
-    appendChild: vi.fn()
-  }
+    appendChild: vi.fn(),
+  },
 } as any;
 
 // Mock requestAnimationFrame
@@ -174,7 +174,7 @@ describe('BackgroundImage', () => {
     beforeEach(async () => {
       image = new BackgroundImage('data:image/png;base64,mockdata');
       // Wait for image to load
-      await new Promise(resolve => setTimeout(resolve, 10));
+      await new Promise((resolve) => setTimeout(resolve, 10));
     });
 
     it('should move image by delta', () => {
@@ -209,7 +209,7 @@ describe('BackgroundImage', () => {
       const angle = Math.PI / 2;
 
       image.rotate(angle);
-      
+
       // Check that rotation was applied
       expect(image.getRotation()).toBe(angle);
     });
@@ -246,7 +246,7 @@ describe('BackgroundImage', () => {
 
     beforeEach(async () => {
       image = new BackgroundImage('data:image/png;base64,mockdata');
-      await new Promise(resolve => setTimeout(resolve, 10));
+      await new Promise((resolve) => setTimeout(resolve, 10));
     });
 
     it('should calculate correct bounds for non-rotated image', () => {
@@ -269,7 +269,7 @@ describe('BackgroundImage', () => {
 
     it('should test point containment', () => {
       const center = image.getCenter();
-      
+
       expect(image.contains(center)).toBe(true);
       expect(image.contains({ x: center.x + 1000, y: center.y })).toBe(false);
     });
@@ -289,7 +289,7 @@ describe('BackgroundImage', () => {
 
     beforeEach(async () => {
       image = new BackgroundImage('data:image/png;base64,mockdata');
-      await new Promise(resolve => setTimeout(resolve, 10));
+      await new Promise((resolve) => setTimeout(resolve, 10));
     });
 
     it('should detect body hits', () => {
@@ -304,7 +304,7 @@ describe('BackgroundImage', () => {
       // Position above the image where rotation handle should be
       const handlePoint: Point = {
         x: center.x,
-        y: center.y + (80 / 2) + 30 // half height + handle distance
+        y: center.y + 80 / 2 + 30, // half height + handle distance
       };
 
       const hitResult = image.hitTest(handlePoint, 1);
@@ -322,11 +322,11 @@ describe('BackgroundImage', () => {
     it('should adjust hit testing based on scale', () => {
       const center = image.getCenter();
       const scale = 0.5; // Smaller scale means larger hit areas in screen space
-      
+
       // Point that might be outside at scale 1 but inside at scale 0.5
       const testPoint: Point = {
         x: center.x,
-        y: center.y + (80 / 2) + 40 // Further from image
+        y: center.y + 80 / 2 + 40, // Further from image
       };
 
       const hitResult = image.hitTest(testPoint, scale);
@@ -340,7 +340,7 @@ describe('BackgroundImage', () => {
 
     beforeEach(async () => {
       image = new BackgroundImage('data:image/png;base64,mockdata');
-      await new Promise(resolve => setTimeout(resolve, 10));
+      await new Promise((resolve) => setTimeout(resolve, 10));
     });
 
     it('should fit image to canvas bounds', () => {
@@ -351,14 +351,14 @@ describe('BackgroundImage', () => {
       image.fitToCanvas(canvasBounds, maxFillRatio, centerPoint);
 
       const data = image.toJSON();
-      
+
       // Image should be scaled to fill 80% of canvas
       const expectedScaleX = (canvasBounds.width * maxFillRatio) / 100;
       const expectedScaleY = (canvasBounds.height * maxFillRatio) / 80;
       const expectedScale = Math.min(expectedScaleX, expectedScaleY);
-      
+
       expect(data.scale).toBe(expectedScale);
-      
+
       // Image should be centered at specified point
       const center = image.getCenter();
       expect(center.x).toBe(centerPoint.x);
@@ -371,7 +371,7 @@ describe('BackgroundImage', () => {
 
     beforeEach(async () => {
       image = new BackgroundImage('data:image/png;base64,mockdata');
-      await new Promise(resolve => setTimeout(resolve, 10));
+      await new Promise((resolve) => setTimeout(resolve, 10));
     });
 
     it('should draw normal image', () => {
@@ -396,8 +396,13 @@ describe('BackgroundImage', () => {
     });
 
     it('should draw loading placeholder for restored images', () => {
-      const restoredImage = new BackgroundImage('data:image/png;base64,mockdata', { x: 0, y: 0 }, 'test', true);
-      
+      const restoredImage = new BackgroundImage(
+        'data:image/png;base64,mockdata',
+        { x: 0, y: 0 },
+        'test',
+        true,
+      );
+
       restoredImage.draw(mockContext, 1, false, false);
 
       expect(mockContext.fillRect).toHaveBeenCalled(); // Loading placeholder
@@ -410,7 +415,7 @@ describe('BackgroundImage', () => {
 
     beforeEach(async () => {
       image = new BackgroundImage('data:image/png;base64,mockdata');
-      await new Promise(resolve => setTimeout(resolve, 10));
+      await new Promise((resolve) => setTimeout(resolve, 10));
     });
 
     it('should update image data and image element', () => {
@@ -428,7 +433,7 @@ describe('BackgroundImage', () => {
 
     beforeEach(async () => {
       image = new BackgroundImage('data:image/png;base64,mockdata', { x: 10, y: 20 }, 'test_id');
-      await new Promise(resolve => setTimeout(resolve, 10));
+      await new Promise((resolve) => setTimeout(resolve, 10));
     });
 
     it('should serialize to JSON correctly', () => {
@@ -460,14 +465,14 @@ describe('BackgroundImage', () => {
         scale: 2,
         opacity: 0.6,
         naturalWidth: 150,
-        naturalHeight: 120
+        naturalHeight: 120,
       };
 
       const restoredImage = BackgroundImage.fromJSON(jsonData);
 
       expect(restoredImage.id).toBe('restored_id');
       expect(restoredImage.getRotation()).toBe(Math.PI / 3);
-      
+
       const restoredData = restoredImage.toJSON();
       expect(restoredData).toEqual(jsonData);
     });
@@ -488,27 +493,37 @@ describe('BackgroundImage', () => {
 
   describe('Performance and Loading', () => {
     it('should handle lazy loading for restored images', async () => {
-      const restoredImage = new BackgroundImage('data:image/png;base64,test', { x: 0, y: 0 }, 'test', true);
-      
+      const restoredImage = new BackgroundImage(
+        'data:image/png;base64,test',
+        { x: 0, y: 0 },
+        'test',
+        true,
+      );
+
       // First draw should trigger lazy loading
       restoredImage.draw(mockContext, 1, false, false);
-      
+
       // Should draw loading placeholder initially
       expect(mockContext.fillText).toHaveBeenCalledWith('Loading...', 0, 0);
     });
 
     it('should dispatch event when lazy loading completes', async () => {
-      const restoredImage = new BackgroundImage('data:image/png;base64,test', { x: 0, y: 0 }, 'test', true);
-      
+      const restoredImage = new BackgroundImage(
+        'data:image/png;base64,test',
+        { x: 0, y: 0 },
+        'test',
+        true,
+      );
+
       restoredImage.draw(mockContext, 1, false, false);
-      
+
       // Wait for async loading
-      await new Promise(resolve => setTimeout(resolve, 10));
-      
+      await new Promise((resolve) => setTimeout(resolve, 10));
+
       expect(document.dispatchEvent).toHaveBeenCalledWith(
         expect.objectContaining({
-          type: 'backgroundImageLoaded'
-        })
+          type: 'backgroundImageLoaded',
+        }),
       );
     });
   });

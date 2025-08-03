@@ -26,9 +26,12 @@
   "author": "",
   "license": "MIT",
   "lint-staged": {
-    "*.{ts,js,cjs,json,md,html,css}": [
-      "npm run format",
-      "npm run lint:fix"
+    "*.{ts,js,cjs}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{json,md,html,css}": [
+      "prettier --write"
     ]
   },
   "dependencies": {

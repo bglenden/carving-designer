@@ -31,7 +31,7 @@ describe('BackgroundImageData', () => {
 
     it('should create a copy of the position object', () => {
       const result = BackgroundImageData.toJSON(sampleData);
-      
+
       expect(result.position).not.toBe(sampleData.position);
       expect(result.position).toEqual(sampleData.position);
     });
@@ -68,7 +68,7 @@ describe('BackgroundImageData', () => {
       };
 
       const result = BackgroundImageData.fromJSON(json);
-      
+
       expect(result.position).not.toBe(json.position);
       expect(result.position).toEqual(json.position);
     });

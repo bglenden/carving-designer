@@ -9,17 +9,29 @@ let fakeShape: any;
 // Top-level MockCanvasManager for use in spies and mocks
 class MockCanvasManager {
   private _shapes: any[] = [];
-  getShapes() { return this._shapes; }
-  setShapes(shapes: any[]) { this._shapes = shapes; }
-  addShape(shape: any) { this._shapes.push(shape); }
-  removeShapes() { this._shapes = []; }
+  getShapes() {
+    return this._shapes;
+  }
+  setShapes(shapes: any[]) {
+    this._shapes = shapes;
+  }
+  addShape(shape: any) {
+    this._shapes.push(shape);
+  }
+  removeShapes() {
+    this._shapes = [];
+  }
   draw() {}
   render() {} // Add render method that FileOperations calls
   zoomIn() {}
   zoomOut() {}
   zoomToFit() {}
-  getPanAndZoomHandler() { return { handleWheel: vi.fn() }; }
-  getCanvas() { return { addEventListener: vi.fn() }; }
+  getPanAndZoomHandler() {
+    return { handleWheel: vi.fn() };
+  }
+  getCanvas() {
+    return { addEventListener: vi.fn() };
+  }
   handleResize() {}
   drawing = { draw: vi.fn(), drawPreviewLines: vi.fn() };
 }
@@ -56,9 +68,15 @@ function mockLocalStorage() {
   let store: Record<string, string> = {};
   return {
     getItem: vi.fn((key: string) => store[key] ?? null),
-    setItem: vi.fn((key: string, val: string) => { store[key] = val; }),
-    removeItem: vi.fn((key: string) => { delete store[key]; }),
-    clear: vi.fn(() => { store = {}; }),
+    setItem: vi.fn((key: string, val: string) => {
+      store[key] = val;
+    }),
+    removeItem: vi.fn((key: string) => {
+      delete store[key];
+    }),
+    clear: vi.fn(() => {
+      store = {};
+    }),
     _store: store,
   };
 }
@@ -79,7 +97,7 @@ describe('App browser persistence', () => {
     vi.spyOn(MockCanvasManager.prototype, 'render');
     mockCanvasManager = new MockCanvasManager();
     mockSelectionManager = { get: vi.fn().mockReturnValue(new Set()), clear: vi.fn() };
-    mockTransformationManager = { 
+    mockTransformationManager = {
       setSelectionCallbacks: vi.fn(),
       enterMoveMode: vi.fn(),
       enterRotateMode: vi.fn(),
@@ -125,13 +143,13 @@ describe('App browser persistence', () => {
     app.initialize();
     // Simulate addShape
     app['canvasManager'].addShape(fakeShape);
-    
+
     // Verify localStorage was called with correct key and a string that contains our data
     expect(globalThis.localStorage.setItem).toHaveBeenCalledWith(
       'cnc_design_autosave',
-      expect.stringContaining('"shapes":[{"type":"LEAF","x":1,"y":2}]')
+      expect.stringContaining('"shapes":[{"type":"LEAF","x":1,"y":2}]'),
     );
-    
+
     // Verify the full structure is correct by parsing the saved data
     const calls = (globalThis.localStorage.setItem as any).mock.calls;
     const savedData = JSON.parse(calls[0][1]);
@@ -141,8 +159,8 @@ describe('App browser persistence', () => {
       version: '2.0',
       metadata: expect.objectContaining({
         description: 'CNC chip carving design (autosave)',
-        modified: expect.any(String)
-      })
+        modified: expect.any(String),
+      }),
     });
   });
 

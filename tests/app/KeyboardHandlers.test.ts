@@ -141,9 +141,7 @@ describe('KeyboardHandlers', () => {
         configurable: true,
       });
 
-      const mockShapes = [
-        { type: ShapeType.LEAF, id: 'shape1' },
-      ];
+      const mockShapes = [{ type: ShapeType.LEAF, id: 'shape1' }];
 
       mockCanvasManager.getShapes.mockReturnValue(mockShapes);
       mockIsEditMode.mockReturnValue(false); // Not in edit mode
@@ -219,9 +217,7 @@ describe('KeyboardHandlers', () => {
         configurable: true,
       });
 
-      const selectedShapes = new Set([
-        { type: ShapeType.LEAF, id: 'shape1' },
-      ]);
+      const selectedShapes = new Set([{ type: ShapeType.LEAF, id: 'shape1' }]);
 
       mockSelectionManager.get.mockReturnValue(selectedShapes);
 
@@ -262,9 +258,7 @@ describe('KeyboardHandlers', () => {
     it('should still handle delete/backspace correctly', () => {
       mockIsEditMode.mockReturnValue(true);
 
-      const selectedShapes = new Set([
-        { type: ShapeType.LEAF, id: 'shape1' },
-      ]);
+      const selectedShapes = new Set([{ type: ShapeType.LEAF, id: 'shape1' }]);
 
       mockSelectionManager.get.mockReturnValue(selectedShapes);
 

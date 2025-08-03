@@ -18,7 +18,7 @@ module.exports = {
           800: '#075985',
           900: '#0c4a6e',
         },
-        
+
         // Semantic colors for UI states
         success: {
           50: '#f0fdf4',
@@ -44,7 +44,7 @@ module.exports = {
           600: '#dc2626',
           700: '#b91c1c',
         },
-        
+
         // Neutral grays with better contrast ratios
         neutral: {
           0: '#ffffff',
@@ -88,10 +88,10 @@ module.exports = {
 
       // Spacing scale for consistent spacing
       spacing: {
-        '18': '4.5rem',
-        '88': '22rem',
-        '112': '28rem',
-        '128': '32rem',
+        18: '4.5rem',
+        88: '22rem',
+        112: '28rem',
+        128: '32rem',
       },
 
       // Typography scale
@@ -101,33 +101,33 @@ module.exports = {
 
       // Shadow system for depth and elevation
       boxShadow: {
-        'toolbar': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-        'button': '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+        toolbar: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+        button: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
         'button-hover': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
         'button-active': 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
-        'panel': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-        'modal': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+        panel: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+        modal: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
       },
 
       // Border radius system
       borderRadius: {
-        'toolbar': '0.5rem',
-        'button': '0.375rem',
-        'panel': '0.75rem',
+        toolbar: '0.5rem',
+        button: '0.375rem',
+        panel: '0.75rem',
       },
 
       // Animation durations
       transitionDuration: {
-        '75': '75ms',
-        '175': '175ms',
+        75: '75ms',
+        175: '175ms',
       },
 
       // Z-index scale
       zIndex: {
-        'toolbar': '10',
-        'modal': '50',
-        'tooltip': '60',
-        'dropdown': '40',
+        toolbar: '10',
+        modal: '50',
+        tooltip: '60',
+        dropdown: '40',
       },
 
       // Custom gradients
@@ -139,7 +139,7 @@ module.exports = {
   },
   plugins: [
     // Custom plugin for component utilities
-    function({ addUtilities, theme }) {
+    function ({ addUtilities, theme }) {
       const newUtilities = {
         // Button component utilities
         '.btn-base': {

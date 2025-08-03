@@ -47,9 +47,9 @@ describe('TransformationManager', () => {
       const mockChildElement = {
         addEventListener: vi.fn(),
         removeEventListener: vi.fn(),
-        style: { cursor: '' }
+        style: { cursor: '' },
       };
-      
+
       const mockElement = {
         querySelector: vi.fn().mockReturnValue(mockChildElement),
         addEventListener: vi.fn(),
@@ -65,20 +65,20 @@ describe('TransformationManager', () => {
         style: {
           left: '',
           top: '',
-          cursor: ''
-        }
+          cursor: '',
+        },
       };
       vi.spyOn(document, 'createElement').mockReturnValue(mockElement as any);
       vi.spyOn(document.body, 'appendChild').mockImplementation(() => mockElement as any);
       vi.spyOn(document, 'addEventListener').mockImplementation(() => {});
       vi.spyOn(document, 'removeEventListener').mockImplementation(() => {});
-      
+
       // Set up callbacks to prevent error
       manager.setSelectionCallbacks(
         () => new Set([shape1, shape2]),
-        () => {}
+        () => {},
       );
-      
+
       manager.enterJiggleMode();
       // Jiggle mode doesn't change the current mode, it shows a modal
       expect(manager.getCurrentMode()).toBe(TransformMode.IDLE);
@@ -94,17 +94,17 @@ describe('TransformationManager', () => {
         remove: vi.fn(),
         innerHTML: '',
         id: '',
-        className: ''
+        className: '',
       };
       vi.spyOn(document, 'createElement').mockReturnValue(mockElement as any);
       vi.spyOn(document.body, 'appendChild').mockImplementation(() => mockElement as any);
-      
+
       // Set up callbacks to prevent error
       manager.setSelectionCallbacks(
         () => new Set([shape1, shape2]),
-        () => {}
+        () => {},
       );
-      
+
       manager.enterMirrorMode();
       // Mirror mode doesn't change the current mode, it shows a modal
       expect(manager.getCurrentMode()).toBe(TransformMode.IDLE);
@@ -190,12 +190,12 @@ describe('TransformationManager', () => {
     it('should not do anything for unimplemented transform modes', () => {
       // Spy on console.error to suppress expected error message
       const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-      
+
       manager.enterRotateMode();
       manager.start(shapes, { x: 0, y: 0 });
       manager.transform({ x: 10, y: 20 }, { x: 0, y: 0 });
       expect(shape1.move).not.toHaveBeenCalled();
-      
+
       // Verify the error was logged
       expect(consoleErrorSpy).toHaveBeenCalledWith('Rotation center is required for ROTATE mode.');
       consoleErrorSpy.mockRestore();

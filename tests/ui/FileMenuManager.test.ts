@@ -67,7 +67,7 @@ describe('FileMenuManager', () => {
       const buttons = document.querySelectorAll('#file-menu button');
       expect(buttons).toHaveLength(3);
 
-      buttons.forEach(button => {
+      buttons.forEach((button) => {
         expect(button.className).toContain('btn-design-system');
         expect(button.className).toContain('interactive');
         expect(button.className).toContain('text-neutral-100');
@@ -83,14 +83,14 @@ describe('FileMenuManager', () => {
 
     it('should toggle file menu visibility', () => {
       const fileMenu = document.getElementById('file-menu') as HTMLElement;
-      
+
       // Initially hidden
       expect(fileMenu.style.display).toBe('none');
-      
+
       // Toggle to show
       fileMenuManager.toggleFileMenu();
       expect(fileMenu.style.display).toBe('block');
-      
+
       // Toggle to hide
       fileMenuManager.toggleFileMenu();
       expect(fileMenu.style.display).toBe('none');
@@ -98,11 +98,11 @@ describe('FileMenuManager', () => {
 
     it('should close file menu when closeFileMenu is called', () => {
       const fileMenu = document.getElementById('file-menu') as HTMLElement;
-      
+
       // Show menu first
       fileMenuManager.toggleFileMenu();
       expect(fileMenu.style.display).toBe('block');
-      
+
       // Close menu
       fileMenuManager.closeFileMenu();
       expect(fileMenu.style.display).toBe('none');
@@ -122,38 +122,38 @@ describe('FileMenuManager', () => {
 
     it('should call Load callback when Load button is clicked', () => {
       const loadBtn = document.getElementById('load-btn') as HTMLButtonElement;
-      
+
       loadBtn.click();
-      
+
       expect(mockLoadCallback).toHaveBeenCalledOnce();
     });
 
     it('should call Save callback when Save button is clicked', () => {
       const saveBtn = document.getElementById('save-btn') as HTMLButtonElement;
-      
+
       saveBtn.click();
-      
+
       expect(mockSaveCallback).toHaveBeenCalledOnce();
     });
 
     it('should call Save As callback when Save As button is clicked', () => {
       const saveAsBtn = document.getElementById('save-as-btn') as HTMLButtonElement;
-      
+
       saveAsBtn.click();
-      
+
       expect(mockSaveAsCallback).toHaveBeenCalledOnce();
     });
 
     it('should close menu after clicking any button', () => {
       const fileMenu = document.getElementById('file-menu') as HTMLElement;
       const loadBtn = document.getElementById('load-btn') as HTMLButtonElement;
-      
+
       // Menu should be visible
       expect(fileMenu.style.display).toBe('block');
-      
+
       // Click button
       loadBtn.click();
-      
+
       // Menu should be hidden
       expect(fileMenu.style.display).toBe('none');
     });
@@ -161,19 +161,19 @@ describe('FileMenuManager', () => {
     it('should handle missing callbacks gracefully', () => {
       // Clear existing menu first
       document.getElementById('file-menu')?.remove();
-      
+
       // Create a new file menu manager with empty callback manager
       const emptyCallbackManager = new CallbackManager();
       const newFileMenuManager = new FileMenuManager(primaryToolbar, emptyCallbackManager);
       newFileMenuManager.createFileMenu();
-      
+
       const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
-      
+
       const loadBtn = document.getElementById('load-btn') as HTMLButtonElement;
       expect(loadBtn).toBeTruthy();
-      
+
       loadBtn.click();
-      
+
       expect(consoleSpy).toHaveBeenCalledWith('No callback set for Load');
       consoleSpy.mockRestore();
     });
@@ -184,17 +184,17 @@ describe('FileMenuManager', () => {
         throw new Error('Test error');
       });
       callbackManager.setLoadDesignCallback(errorCallback);
-      
+
       const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-      
+
       const loadBtn = document.getElementById('load-btn') as HTMLButtonElement;
-      
+
       // Should not throw error
       expect(() => loadBtn.click()).not.toThrow();
-      
+
       expect(errorCallback).toHaveBeenCalledOnce();
       expect(consoleSpy).toHaveBeenCalledWith('Error calling Load callback:', expect.any(Error));
-      
+
       consoleSpy.mockRestore();
     });
   });
@@ -207,42 +207,42 @@ describe('FileMenuManager', () => {
     it('should access callbacks dynamically when clicked', () => {
       // Clear existing menu first
       document.getElementById('file-menu')?.remove();
-      
+
       // Initially no callback set
       const emptyCallbackManager = new CallbackManager();
       const newFileMenuManager = new FileMenuManager(primaryToolbar, emptyCallbackManager);
       newFileMenuManager.createFileMenu();
-      
+
       const loadBtn = document.getElementById('load-btn') as HTMLButtonElement;
       expect(loadBtn).toBeTruthy();
-      
+
       // First click - no callback
       const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
       loadBtn.click();
       expect(consoleSpy).toHaveBeenCalledWith('No callback set for Load');
-      
+
       // Set callback after menu creation
       const newLoadCallback = vi.fn();
       emptyCallbackManager.setLoadDesignCallback(newLoadCallback);
-      
+
       // Second click - should call new callback
       loadBtn.click();
       expect(newLoadCallback).toHaveBeenCalledOnce();
-      
+
       consoleSpy.mockRestore();
     });
 
     it('should handle callback changes after menu creation', () => {
       const loadBtn = document.getElementById('load-btn') as HTMLButtonElement;
-      
+
       // First callback
       loadBtn.click();
       expect(mockLoadCallback).toHaveBeenCalledOnce();
-      
+
       // Change callback
       const newLoadCallback = vi.fn();
       callbackManager.setLoadDesignCallback(newLoadCallback);
-      
+
       // Second click should use new callback
       loadBtn.click();
       expect(newLoadCallback).toHaveBeenCalledOnce();
@@ -257,13 +257,13 @@ describe('FileMenuManager', () => {
 
     it('should support setting UI update callback', () => {
       const mockUpdateUI = vi.fn();
-      
+
       fileMenuManager.setUpdateFileMenuUI(mockUpdateUI);
-      
+
       // Toggle menu to trigger UI update
       fileMenuManager.toggleFileMenu();
       expect(mockUpdateUI).toHaveBeenCalledWith(true);
-      
+
       fileMenuManager.toggleFileMenu();
       expect(mockUpdateUI).toHaveBeenCalledWith(false);
     });

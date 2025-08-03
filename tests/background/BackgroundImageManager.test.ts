@@ -6,17 +6,19 @@ import { Point, HitRegion } from '../../src/core/types.js';
 // Mock the BackgroundImage class to avoid dealing with actual images in tests
 vi.mock('../../src/background/BackgroundImage.js', () => {
   return {
-    BackgroundImage: vi.fn().mockImplementation((imageData: string, position: Point = { x: 0, y: 0 }, id?: string) => ({
-      id: id || `mock_${Math.random().toString(36).substr(2, 9)}`,
-      selected: false,
-      setOpacity: vi.fn(),
-      hitTest: vi.fn(() => ({ region: HitRegion.NONE })),
-      draw: vi.fn(),
-      toJSON: vi.fn(function() { 
-        return { id: this.id, data: imageData };
-      }),
-    })),
-    BackgroundImageData: {} // Export the type
+    BackgroundImage: vi
+      .fn()
+      .mockImplementation((imageData: string, position: Point = { x: 0, y: 0 }, id?: string) => ({
+        id: id || `mock_${Math.random().toString(36).substr(2, 9)}`,
+        selected: false,
+        setOpacity: vi.fn(),
+        hitTest: vi.fn(() => ({ region: HitRegion.NONE })),
+        draw: vi.fn(),
+        toJSON: vi.fn(function () {
+          return { id: this.id, data: imageData };
+        }),
+      })),
+    BackgroundImageData: {}, // Export the type
   };
 });
 
@@ -27,7 +29,7 @@ describe('BackgroundImageManager', () => {
 
   beforeEach(() => {
     manager = new BackgroundImageManager();
-    
+
     // Create mock canvas and context
     mockCanvas = document.createElement('canvas');
     mockContext = {
@@ -96,7 +98,7 @@ describe('BackgroundImageManager', () => {
 
       // Should not throw
       expect(() => manager.removeImage(fakeImage)).not.toThrow();
-      
+
       // Original image should still be there
       expect(manager.getImages()).toHaveLength(1);
       expect(manager.getImages()[0]).toBe(image1);
@@ -138,13 +140,13 @@ describe('BackgroundImageManager', () => {
 
     it('should handle selecting the same image twice', () => {
       const image = manager.addImage('data');
-      
+
       manager.setSelectedImage(image);
       const firstCallCount = (image as any).selected;
-      
+
       // Select same image again
       manager.setSelectedImage(image);
-      
+
       expect(manager.getSelectedImage()).toBe(image);
       expect(image.selected).toBe(true);
     });
@@ -370,7 +372,7 @@ describe('BackgroundImageManager', () => {
       expect(json).toHaveLength(2);
       expect(json).toEqual([
         { id: 'img1', data: 'data1' },
-        { id: 'img2', data: 'data2' }
+        { id: 'img2', data: 'data2' },
       ]);
     });
 

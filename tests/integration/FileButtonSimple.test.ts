@@ -7,9 +7,15 @@ function mockLocalStorage() {
   let store: Record<string, string> = {};
   return {
     getItem: vi.fn((key: string) => store[key] ?? null),
-    setItem: vi.fn((key: string, val: string) => { store[key] = val; }),
-    removeItem: vi.fn((key: string) => { delete store[key]; }),
-    clear: vi.fn(() => { store = {}; }),
+    setItem: vi.fn((key: string, val: string) => {
+      store[key] = val;
+    }),
+    removeItem: vi.fn((key: string) => {
+      delete store[key];
+    }),
+    clear: vi.fn(() => {
+      store = {};
+    }),
     _store: store,
   };
 }
@@ -69,7 +75,7 @@ describe('File Button Core Functionality', () => {
     it('should create correct data structure for save', async () => {
       const mockShapes = [
         { toJSON: () => ({ type: ShapeType.LEAF, x: 10, y: 20 }) },
-        { toJSON: () => ({ type: ShapeType.TRI_ARC, v1: { x: 0, y: 0 } }) }
+        { toJSON: () => ({ type: ShapeType.TRI_ARC, v1: { x: 0, y: 0 } }) },
       ];
 
       mockCanvasManager.getShapes.mockReturnValue(mockShapes);
@@ -82,12 +88,12 @@ describe('File Button Core Functionality', () => {
         expect.objectContaining({
           shapes: [
             { type: ShapeType.LEAF, x: 10, y: 20 },
-            { type: ShapeType.TRI_ARC, v1: { x: 0, y: 0 } }
+            { type: ShapeType.TRI_ARC, v1: { x: 0, y: 0 } },
           ],
           backgroundImages: [{ id: 'bg1', data: 'test' }],
-          version: '2.0'
+          version: '2.0',
         }),
-        false
+        false,
       );
     });
 
@@ -101,9 +107,9 @@ describe('File Button Core Functionality', () => {
         expect.objectContaining({
           shapes: [],
           backgroundImages: [],
-          version: '2.0'
+          version: '2.0',
         }),
-        true // saveAs = true
+        true, // saveAs = true
       );
     });
 
@@ -116,10 +122,7 @@ describe('File Button Core Functionality', () => {
       // Should not throw
       await expect(fileOperations.handleSaveDesign(false)).resolves.toBeUndefined();
 
-      expect(consoleSpy).toHaveBeenCalledWith(
-        'Failed to save design:',
-        expect.any(Error)
-      );
+      expect(consoleSpy).toHaveBeenCalledWith('Failed to save design:', expect.any(Error));
 
       consoleSpy.mockRestore();
     });
@@ -130,7 +133,7 @@ describe('File Button Core Functionality', () => {
       const mockDesignData = {
         shapes: [{ type: ShapeType.LEAF, x: 10, y: 20 }],
         backgroundImages: [{ id: 'bg1', data: 'test' }],
-        version: '2.0'
+        version: '2.0',
       };
 
       mockPersistenceManager.load.mockResolvedValue(mockDesignData);
@@ -139,7 +142,9 @@ describe('File Button Core Functionality', () => {
 
       expect(mockPersistenceManager.load).toHaveBeenCalledOnce();
       expect(mockCanvasManager.setShapes).toHaveBeenCalledWith(mockDesignData.shapes);
-      expect(mockBackgroundImageManager.fromJSON).toHaveBeenCalledWith(mockDesignData.backgroundImages);
+      expect(mockBackgroundImageManager.fromJSON).toHaveBeenCalledWith(
+        mockDesignData.backgroundImages,
+      );
       expect(mockSelectionManager.clear).toHaveBeenCalled();
     });
 
@@ -151,10 +156,7 @@ describe('File Button Core Functionality', () => {
       // Should not throw
       await expect(fileOperations.handleLoadDesign()).resolves.toBeUndefined();
 
-      expect(consoleSpy).toHaveBeenCalledWith(
-        'Failed to load design:',
-        expect.any(Error)
-      );
+      expect(consoleSpy).toHaveBeenCalledWith('Failed to load design:', expect.any(Error));
 
       consoleSpy.mockRestore();
     });
@@ -170,7 +172,7 @@ describe('File Button Core Functionality', () => {
 
       // Should handle the error gracefully
       expect(consoleSpy).toHaveBeenCalled();
-      
+
       consoleSpy.mockRestore();
     });
   });
@@ -191,7 +193,14 @@ describe('File Button Core Functionality', () => {
       // Test data
       const testShapes = [
         { toJSON: () => ({ type: ShapeType.LEAF, x: 10, y: 20, radius: 5 }) },
-        { toJSON: () => ({ type: ShapeType.TRI_ARC, v1: { x: 0, y: 0 }, v2: { x: 10, y: 0 }, v3: { x: 5, y: 10 } }) }
+        {
+          toJSON: () => ({
+            type: ShapeType.TRI_ARC,
+            v1: { x: 0, y: 0 },
+            v2: { x: 10, y: 0 },
+            v3: { x: 5, y: 10 },
+          }),
+        },
       ];
       const testBackgrounds = [{ id: 'bg1', imageData: 'data:image/png;base64,test' }];
 
@@ -214,11 +223,11 @@ describe('File Button Core Functionality', () => {
       // Verify shapes format
       expect(savedData.shapes).toHaveLength(2);
       expect(savedData.shapes[0]).toEqual({ type: ShapeType.LEAF, x: 10, y: 20, radius: 5 });
-      expect(savedData.shapes[1]).toEqual({ 
-        type: ShapeType.TRI_ARC, 
-        v1: { x: 0, y: 0 }, 
-        v2: { x: 10, y: 0 }, 
-        v3: { x: 5, y: 10 } 
+      expect(savedData.shapes[1]).toEqual({
+        type: ShapeType.TRI_ARC,
+        v1: { x: 0, y: 0 },
+        v2: { x: 10, y: 0 },
+        v3: { x: 5, y: 10 },
       });
 
       // Verify background images format
@@ -243,7 +252,7 @@ describe('File Button Core Functionality', () => {
     it('should handle permission denied errors', async () => {
       mockCanvasManager.getShapes.mockReturnValue([]);
       mockPersistenceManager.save.mockRejectedValue(
-        new DOMException('Permission denied', 'NotAllowedError')
+        new DOMException('Permission denied', 'NotAllowedError'),
       );
 
       const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
@@ -252,16 +261,14 @@ describe('File Button Core Functionality', () => {
 
       expect(consoleSpy).toHaveBeenCalledWith(
         'Failed to save design:',
-        expect.objectContaining({ name: 'NotAllowedError' })
+        expect.objectContaining({ name: 'NotAllowedError' }),
       );
 
       consoleSpy.mockRestore();
     });
 
     it('should handle network errors during file operations', async () => {
-      mockPersistenceManager.load.mockRejectedValue(
-        new Error('Network error')
-      );
+      mockPersistenceManager.load.mockRejectedValue(new Error('Network error'));
 
       const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 
@@ -269,7 +276,7 @@ describe('File Button Core Functionality', () => {
 
       expect(consoleSpy).toHaveBeenCalledWith(
         'Failed to load design:',
-        expect.objectContaining({ message: 'Network error' })
+        expect.objectContaining({ message: 'Network error' }),
       );
 
       consoleSpy.mockRestore();
@@ -294,7 +301,7 @@ describe('File Button Core Functionality', () => {
       const testData = JSON.stringify({
         shapes: [{ type: ShapeType.LEAF, x: 1, y: 2 }],
         backgroundImages: [],
-        version: '2.0'
+        version: '2.0',
       });
 
       globalThis.localStorage.getItem = vi.fn(() => testData);

@@ -9,12 +9,12 @@ const mockShowOpenFilePicker = vi.fn();
 // Mock the global file system APIs
 Object.defineProperty(window, 'showSaveFilePicker', {
   value: mockShowSaveFilePicker,
-  writable: true
+  writable: true,
 });
 
 Object.defineProperty(window, 'showOpenFilePicker', {
   value: mockShowOpenFilePicker,
-  writable: true
+  writable: true,
 });
 
 // Mock managers with minimal implementations
@@ -30,9 +30,15 @@ function mockLocalStorage() {
   let store: Record<string, string> = {};
   return {
     getItem: vi.fn((key: string) => store[key] ?? null),
-    setItem: vi.fn((key: string, val: string) => { store[key] = val; }),
-    removeItem: vi.fn((key: string) => { delete store[key]; }),
-    clear: vi.fn(() => { store = {}; }),
+    setItem: vi.fn((key: string, val: string) => {
+      store[key] = val;
+    }),
+    removeItem: vi.fn((key: string) => {
+      delete store[key];
+    }),
+    clear: vi.fn(() => {
+      store = {};
+    }),
     _store: store,
   };
 }
@@ -77,7 +83,7 @@ describe('File Button Integration', () => {
     document.body.innerHTML = `
       <div id="primary-toolbar"></div>
     `;
-    
+
     // Create a proper canvas mock with event listener methods
     const canvasElement = document.createElement('canvas');
     canvasElement.id = 'design-canvas';
@@ -124,7 +130,7 @@ describe('File Button Integration', () => {
     // Mock file operations
     mockFileOperationsLoad = vi.fn();
     mockFileOperationsSave = vi.fn();
-    
+
     mockPersistenceManager = {
       load: mockFileOperationsLoad,
       save: mockFileOperationsSave,
@@ -168,7 +174,7 @@ describe('File Button Integration', () => {
     );
 
     app.initialize();
-    
+
     // Re-spy on methods after they may have been patched by autosave
     vi.spyOn(mockCanvasManager, 'setShapes');
     vi.spyOn(mockSelectionManager, 'clear');
@@ -182,21 +188,15 @@ describe('File Button Integration', () => {
 
   describe('Callback Registration', () => {
     it('should register load design callback with toolbar manager', () => {
-      expect(mockToolbarManager.setLoadDesignCallback).toHaveBeenCalledWith(
-        expect.any(Function)
-      );
+      expect(mockToolbarManager.setLoadDesignCallback).toHaveBeenCalledWith(expect.any(Function));
     });
 
     it('should register save design callback with toolbar manager', () => {
-      expect(mockToolbarManager.setSaveDesignCallback).toHaveBeenCalledWith(
-        expect.any(Function)
-      );
+      expect(mockToolbarManager.setSaveDesignCallback).toHaveBeenCalledWith(expect.any(Function));
     });
 
     it('should register save as design callback with toolbar manager', () => {
-      expect(mockToolbarManager.setSaveAsDesignCallback).toHaveBeenCalledWith(
-        expect.any(Function)
-      );
+      expect(mockToolbarManager.setSaveAsDesignCallback).toHaveBeenCalledWith(expect.any(Function));
     });
   });
 
@@ -210,7 +210,7 @@ describe('File Button Integration', () => {
       const mockDesignData = {
         shapes: [{ type: ShapeType.LEAF, x: 10, y: 20 }],
         backgroundImages: [],
-        version: '2.0'
+        version: '2.0',
       };
       mockFileOperationsLoad.mockResolvedValue(mockDesignData);
 
@@ -227,16 +227,13 @@ describe('File Button Integration', () => {
       const loadCallback = loadCallbackCall[0];
 
       mockFileOperationsLoad.mockRejectedValue(new Error('Load failed'));
-      
+
       const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 
       // Should not throw
       await expect(loadCallback()).resolves.toBeUndefined();
 
-      expect(consoleSpy).toHaveBeenCalledWith(
-        'Failed to load design:',
-        expect.any(Error)
-      );
+      expect(consoleSpy).toHaveBeenCalledWith('Failed to load design:', expect.any(Error));
 
       consoleSpy.mockRestore();
     });
@@ -247,7 +244,9 @@ describe('File Button Integration', () => {
       const saveCallbackCall = mockToolbarManager.setSaveDesignCallback.mock.calls[0];
       const saveCallback = saveCallbackCall[0];
 
-      const mockShapes = [{ type: ShapeType.LEAF, toJSON: () => ({ type: ShapeType.LEAF, x: 1, y: 2 }) }];
+      const mockShapes = [
+        { type: ShapeType.LEAF, toJSON: () => ({ type: ShapeType.LEAF, x: 1, y: 2 }) },
+      ];
       mockCanvasManager.getShapes.mockReturnValue(mockShapes);
 
       mockFileOperationsSave.mockResolvedValue(undefined);
@@ -258,9 +257,9 @@ describe('File Button Integration', () => {
         expect.objectContaining({
           shapes: expect.any(Array),
           backgroundImages: expect.any(Array),
-          version: '2.0'
+          version: '2.0',
         }),
-        false // saveAs = false
+        false, // saveAs = false
       );
     });
 
@@ -268,7 +267,9 @@ describe('File Button Integration', () => {
       const saveAsCallbackCall = mockToolbarManager.setSaveAsDesignCallback.mock.calls[0];
       const saveAsCallback = saveAsCallbackCall[0];
 
-      const mockShapes = [{ type: ShapeType.LEAF, toJSON: () => ({ type: ShapeType.LEAF, x: 1, y: 2 }) }];
+      const mockShapes = [
+        { type: ShapeType.LEAF, toJSON: () => ({ type: ShapeType.LEAF, x: 1, y: 2 }) },
+      ];
       mockCanvasManager.getShapes.mockReturnValue(mockShapes);
 
       mockFileOperationsSave.mockResolvedValue(undefined);
@@ -279,9 +280,9 @@ describe('File Button Integration', () => {
         expect.objectContaining({
           shapes: expect.any(Array),
           backgroundImages: expect.any(Array),
-          version: '2.0'
+          version: '2.0',
         }),
-        true // saveAs = true
+        true, // saveAs = true
       );
     });
 
@@ -297,10 +298,7 @@ describe('File Button Integration', () => {
       // Should not throw
       await expect(saveCallback()).resolves.toBeUndefined();
 
-      expect(consoleSpy).toHaveBeenCalledWith(
-        'Failed to save design:',
-        expect.any(Error)
-      );
+      expect(consoleSpy).toHaveBeenCalledWith('Failed to save design:', expect.any(Error));
 
       consoleSpy.mockRestore();
     });
@@ -311,7 +309,7 @@ describe('File Button Integration', () => {
       // Mock some existing shapes
       mockCanvasManager.getShapes.mockReturnValue([
         { type: ShapeType.LEAF },
-        { type: ShapeType.TRI_ARC }
+        { type: ShapeType.TRI_ARC },
       ]);
 
       app.clearDesign();
@@ -327,7 +325,10 @@ describe('File Button Integration', () => {
       // Setup some test data
       const testShapes = [
         { type: ShapeType.LEAF, toJSON: () => ({ type: ShapeType.LEAF, x: 10, y: 20 }) },
-        { type: ShapeType.TRI_ARC, toJSON: () => ({ type: ShapeType.TRI_ARC, v1: { x: 0, y: 0 } }) }
+        {
+          type: ShapeType.TRI_ARC,
+          toJSON: () => ({ type: ShapeType.TRI_ARC, v1: { x: 0, y: 0 } }),
+        },
       ];
 
       mockCanvasManager.getShapes.mockReturnValue(testShapes);
@@ -338,14 +339,14 @@ describe('File Button Integration', () => {
 
       // Verify the data format passed to persistence manager
       const savedData = mockFileOperationsSave.mock.calls[0][0];
-      
+
       expect(savedData).toMatchObject({
         shapes: expect.arrayContaining([
           { type: ShapeType.LEAF, x: 10, y: 20 },
-          { type: ShapeType.TRI_ARC, v1: { x: 0, y: 0 } }
+          { type: ShapeType.TRI_ARC, v1: { x: 0, y: 0 } },
         ]),
         backgroundImages: expect.any(Array),
-        version: '2.0'
+        version: '2.0',
       });
 
       expect(savedData.shapes).toHaveLength(2);
@@ -366,36 +367,38 @@ describe('File Button Integration', () => {
   describe('Error Recovery', () => {
     it('should recover from file system permission errors', async () => {
       const saveCallback = mockToolbarManager.setSaveDesignCallback.mock.calls[0][0];
-      
+
       // Simulate permission error
-      mockFileOperationsSave.mockRejectedValue(new DOMException('Permission denied', 'NotAllowedError'));
-      
+      mockFileOperationsSave.mockRejectedValue(
+        new DOMException('Permission denied', 'NotAllowedError'),
+      );
+
       const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-      
+
       await saveCallback();
-      
+
       expect(consoleSpy).toHaveBeenCalled();
       // App should continue to function normally
       expect(mockCanvasManager.getShapes).toHaveBeenCalled();
-      
+
       consoleSpy.mockRestore();
     });
 
     it('should handle corrupted file load gracefully', async () => {
       const loadCallback = mockToolbarManager.setLoadDesignCallback.mock.calls[0][0];
-      
+
       // Simulate corrupted file error
       mockFileOperationsLoad.mockRejectedValue(new Error('Invalid file format'));
-      
+
       const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-      
+
       await loadCallback();
-      
+
       expect(consoleSpy).toHaveBeenCalledWith(
         'Failed to load design:',
-        expect.objectContaining({ message: 'Invalid file format' })
+        expect.objectContaining({ message: 'Invalid file format' }),
       );
-      
+
       consoleSpy.mockRestore();
     });
   });

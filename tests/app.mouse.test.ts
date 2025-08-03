@@ -111,15 +111,27 @@ describe('App Mouse Event Handlers', () => {
       getMousePos: vi.fn((e: MouseEvent) => ({ x: e.clientX, y: e.clientY })),
     };
     class MockCanvasManager {
-      getCanvas() { return canvasElement; }
+      getCanvas() {
+        return canvasElement;
+      }
       handleResize() {}
       setEditMode(..._args: any[]) {}
-      getPanAndZoomHandler() { return panZoomHandler as any; }
-      screenToWorld(p: any) { return p; }
-      getShapeAtPoint(..._args: any[]) { return null; }
+      getPanAndZoomHandler() {
+        return panZoomHandler as any;
+      }
+      screenToWorld(p: any) {
+        return p;
+      }
+      getShapeAtPoint(..._args: any[]) {
+        return null;
+      }
       draw() {}
-      getScale() { return 1; }
-      getShapes() { return []; }
+      getScale() {
+        return 1;
+      }
+      getShapes() {
+        return [];
+      }
       addShape(..._args: any[]) {}
       removeShapes(..._args: any[]) {}
       setShapes(..._args: any[]) {}

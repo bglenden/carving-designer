@@ -19,7 +19,7 @@ describe('PanAndZoomHandler - Restriction Changes', () => {
     mockCanvas = document.createElement('canvas');
     mockCanvas.width = 800;
     mockCanvas.height = 600;
-    
+
     getDpr = vi.fn(() => 1);
     getOffset = vi.fn(() => ({ x: 400, y: 300 }));
     onPan = vi.fn();
@@ -40,7 +40,7 @@ describe('PanAndZoomHandler - Restriction Changes', () => {
       draw,
       onMouseMove,
       onClick,
-      placementModeActive
+      placementModeActive,
     );
 
     vi.clearAllMocks();
@@ -105,7 +105,7 @@ describe('PanAndZoomHandler - Restriction Changes', () => {
       const wheelEvent = new WheelEvent('wheel', {
         deltaY: -100, // Zoom in
         bubbles: true,
-        cancelable: true
+        cancelable: true,
       });
       mockCanvas.dispatchEvent(wheelEvent);
 
@@ -121,7 +121,7 @@ describe('PanAndZoomHandler - Restriction Changes', () => {
       const wheelEvent = new WheelEvent('wheel', {
         deltaY: 100, // Zoom out
         bubbles: true,
-        cancelable: true
+        cancelable: true,
       });
       mockCanvas.dispatchEvent(wheelEvent);
 
@@ -138,7 +138,7 @@ describe('PanAndZoomHandler - Restriction Changes', () => {
       // Left mouse should not work
       const leftMouseEvent = createMouseEvent('mousedown', 100, 100, { button: 0 });
       mockCanvas.dispatchEvent(leftMouseEvent);
-      
+
       const leftMoveEvent = createMouseEvent('mousemove', 110, 110, { button: 0 });
       mockCanvas.dispatchEvent(leftMoveEvent);
       expect(onPan).not.toHaveBeenCalled();
@@ -147,7 +147,7 @@ describe('PanAndZoomHandler - Restriction Changes', () => {
       vi.clearAllMocks();
       const middleMouseEvent = createMouseEvent('mousedown', 100, 100, { button: 1 });
       mockCanvas.dispatchEvent(middleMouseEvent);
-      
+
       const middleMoveEvent = createMouseEvent('mousemove', 110, 110, { button: 1 });
       mockCanvas.dispatchEvent(middleMoveEvent);
       expect(onPan).toHaveBeenCalled();
@@ -160,7 +160,7 @@ describe('PanAndZoomHandler - Restriction Changes', () => {
       // Left mouse should not work
       const leftMouseEvent = createMouseEvent('mousedown', 100, 100, { button: 0 });
       mockCanvas.dispatchEvent(leftMouseEvent);
-      
+
       const leftMoveEvent = createMouseEvent('mousemove', 110, 110, { button: 0 });
       mockCanvas.dispatchEvent(leftMoveEvent);
       expect(onPan).not.toHaveBeenCalled();
@@ -169,7 +169,7 @@ describe('PanAndZoomHandler - Restriction Changes', () => {
       vi.clearAllMocks();
       const middleMouseEvent = createMouseEvent('mousedown', 100, 100, { button: 1 });
       mockCanvas.dispatchEvent(middleMouseEvent);
-      
+
       const middleMoveEvent = createMouseEvent('mousemove', 110, 110, { button: 1 });
       mockCanvas.dispatchEvent(middleMoveEvent);
       expect(onPan).toHaveBeenCalled();
@@ -194,9 +194,9 @@ describe('PanAndZoomHandler - Restriction Changes', () => {
     it('should prevent context menu events', () => {
       const contextMenuEvent = new Event('contextmenu', {
         bubbles: true,
-        cancelable: true
+        cancelable: true,
       });
-      
+
       const preventDefaultSpy = vi.spyOn(contextMenuEvent, 'preventDefault');
       const stopPropagationSpy = vi.spyOn(contextMenuEvent, 'stopPropagation');
 
@@ -217,7 +217,7 @@ describe('PanAndZoomHandler - Restriction Changes', () => {
         deltaX: 50,
         deltaY: 25,
         bubbles: true,
-        cancelable: true
+        cancelable: true,
       });
 
       mockCanvas.dispatchEvent(wheelEvent);
@@ -235,7 +235,7 @@ describe('PanAndZoomHandler - Restriction Changes', () => {
         deltaX: 50,
         deltaY: 25,
         bubbles: true,
-        cancelable: true
+        cancelable: true,
       });
 
       mockCanvas.dispatchEvent(wheelEvent);
@@ -253,7 +253,7 @@ describe('PanAndZoomHandler - Restriction Changes', () => {
         deltaX: 0,
         deltaY: 100,
         bubbles: true,
-        cancelable: true
+        cancelable: true,
       });
 
       mockCanvas.dispatchEvent(wheelEvent);
@@ -268,16 +268,16 @@ describe('PanAndZoomHandler - Restriction Changes', () => {
     it('should handle gesturestart events', () => {
       const gestureStartEvent = new Event('gesturestart', {
         bubbles: true,
-        cancelable: true
+        cancelable: true,
       });
-      
+
       // Add gesture-specific properties
       Object.defineProperty(gestureStartEvent, 'clientX', { value: 100 });
       Object.defineProperty(gestureStartEvent, 'clientY', { value: 100 });
-      
+
       const preventDefaultSpy = vi.spyOn(gestureStartEvent, 'preventDefault');
       mockCanvas.dispatchEvent(gestureStartEvent);
-      
+
       expect(preventDefaultSpy).toHaveBeenCalled();
     });
 
@@ -285,7 +285,7 @@ describe('PanAndZoomHandler - Restriction Changes', () => {
       // Set up gesture start first
       const gestureStartEvent = new Event('gesturestart', {
         bubbles: true,
-        cancelable: true
+        cancelable: true,
       });
       Object.defineProperty(gestureStartEvent, 'clientX', { value: 100 });
       Object.defineProperty(gestureStartEvent, 'clientY', { value: 100 });
@@ -296,14 +296,14 @@ describe('PanAndZoomHandler - Restriction Changes', () => {
 
       const gestureChangeEvent = new Event('gesturechange', {
         bubbles: true,
-        cancelable: true
+        cancelable: true,
       });
       Object.defineProperty(gestureChangeEvent, 'clientX', { value: 110 });
       Object.defineProperty(gestureChangeEvent, 'clientY', { value: 105 });
-      
+
       vi.clearAllMocks();
       mockCanvas.dispatchEvent(gestureChangeEvent);
-      
+
       // Should pan when no tools are active
       expect(onPan).toHaveBeenCalled();
     });
@@ -312,7 +312,7 @@ describe('PanAndZoomHandler - Restriction Changes', () => {
       // Set up gesture start first
       const gestureStartEvent = new Event('gesturestart', {
         bubbles: true,
-        cancelable: true
+        cancelable: true,
       });
       Object.defineProperty(gestureStartEvent, 'clientX', { value: 100 });
       Object.defineProperty(gestureStartEvent, 'clientY', { value: 100 });
@@ -323,14 +323,14 @@ describe('PanAndZoomHandler - Restriction Changes', () => {
 
       const gestureChangeEvent = new Event('gesturechange', {
         bubbles: true,
-        cancelable: true
+        cancelable: true,
       });
       Object.defineProperty(gestureChangeEvent, 'clientX', { value: 110 });
       Object.defineProperty(gestureChangeEvent, 'clientY', { value: 105 });
-      
+
       vi.clearAllMocks();
       mockCanvas.dispatchEvent(gestureChangeEvent);
-      
+
       // Should not pan when tools are active
       expect(onPan).not.toHaveBeenCalled();
     });
@@ -345,10 +345,10 @@ describe('PanAndZoomHandler - Restriction Changes', () => {
       const touchStartEvent = new TouchEvent('touchstart', {
         touches: [
           { clientX: 100, clientY: 100, identifier: 1 } as Touch,
-          { clientX: 110, clientY: 110, identifier: 2 } as Touch
+          { clientX: 110, clientY: 110, identifier: 2 } as Touch,
         ],
         bubbles: true,
-        cancelable: true
+        cancelable: true,
       });
       mockCanvas.dispatchEvent(touchStartEvent);
 
@@ -356,12 +356,12 @@ describe('PanAndZoomHandler - Restriction Changes', () => {
       const touchMoveEvent = new TouchEvent('touchmove', {
         touches: [
           { clientX: 120, clientY: 120, identifier: 1 } as Touch,
-          { clientX: 130, clientY: 130, identifier: 2 } as Touch
+          { clientX: 130, clientY: 130, identifier: 2 } as Touch,
         ],
         bubbles: true,
-        cancelable: true
+        cancelable: true,
       });
-      
+
       vi.clearAllMocks();
       mockCanvas.dispatchEvent(touchMoveEvent);
 
@@ -377,10 +377,10 @@ describe('PanAndZoomHandler - Restriction Changes', () => {
       const touchStartEvent = new TouchEvent('touchstart', {
         touches: [
           { clientX: 100, clientY: 100, identifier: 1 } as Touch,
-          { clientX: 110, clientY: 110, identifier: 2 } as Touch
+          { clientX: 110, clientY: 110, identifier: 2 } as Touch,
         ],
         bubbles: true,
-        cancelable: true
+        cancelable: true,
       });
       mockCanvas.dispatchEvent(touchStartEvent);
 
@@ -388,12 +388,12 @@ describe('PanAndZoomHandler - Restriction Changes', () => {
       const touchMoveEvent = new TouchEvent('touchmove', {
         touches: [
           { clientX: 120, clientY: 120, identifier: 1 } as Touch,
-          { clientX: 130, clientY: 130, identifier: 2 } as Touch
+          { clientX: 130, clientY: 130, identifier: 2 } as Touch,
         ],
         bubbles: true,
-        cancelable: true
+        cancelable: true,
       });
-      
+
       vi.clearAllMocks();
       mockCanvas.dispatchEvent(touchMoveEvent);
 

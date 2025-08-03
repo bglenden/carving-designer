@@ -142,7 +142,7 @@ describe('PanAndZoomHandler', () => {
       // Create a completely new canvas to avoid shared state
       const newCanvas = document.createElement('canvas');
       const newOnMouseMove = vi.fn();
-      
+
       const handlerWithNullCallback = new PanAndZoomHandler(
         newCanvas,
         getDpr,

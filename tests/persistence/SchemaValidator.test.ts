@@ -7,7 +7,7 @@ describe('SchemaValidator', () => {
       const validData = {
         version: '2.0',
         shapes: [],
-        backgroundImages: []
+        backgroundImages: [],
       };
 
       expect(SchemaValidator.validateDesignData(validData)).toBe(true);
@@ -19,11 +19,14 @@ describe('SchemaValidator', () => {
         shapes: [
           {
             type: 'LEAF',
-            vertices: [{ x: 100, y: 200 }, { x: 150, y: 250 }],
-            radius: 30
-          }
+            vertices: [
+              { x: 100, y: 200 },
+              { x: 150, y: 250 },
+            ],
+            radius: 30,
+          },
         ],
-        backgroundImages: []
+        backgroundImages: [],
       };
 
       expect(SchemaValidator.validateDesignData(validData)).toBe(true);
@@ -35,11 +38,15 @@ describe('SchemaValidator', () => {
         shapes: [
           {
             type: 'TRI_ARC',
-            vertices: [{ x: 0, y: 0 }, { x: 100, y: 0 }, { x: 50, y: 100 }],
-            curvatures: [-0.2, -0.3, -0.1]
-          }
+            vertices: [
+              { x: 0, y: 0 },
+              { x: 100, y: 0 },
+              { x: 50, y: 100 },
+            ],
+            curvatures: [-0.2, -0.3, -0.1],
+          },
         ],
-        backgroundImages: []
+        backgroundImages: [],
       };
 
       expect(SchemaValidator.validateDesignData(validData)).toBe(true);
@@ -51,16 +58,23 @@ describe('SchemaValidator', () => {
         shapes: [
           {
             type: 'LEAF',
-            vertices: [{ x: 100, y: 200 }, { x: 150, y: 250 }],
-            radius: 30
+            vertices: [
+              { x: 100, y: 200 },
+              { x: 150, y: 250 },
+            ],
+            radius: 30,
           },
           {
             type: 'TRI_ARC',
-            vertices: [{ x: 0, y: 0 }, { x: 100, y: 0 }, { x: 50, y: 100 }],
-            curvatures: [-0.2, -0.3, -0.1]
-          }
+            vertices: [
+              { x: 0, y: 0 },
+              { x: 100, y: 0 },
+              { x: 50, y: 100 },
+            ],
+            curvatures: [-0.2, -0.3, -0.1],
+          },
         ],
-        backgroundImages: []
+        backgroundImages: [],
       };
 
       expect(SchemaValidator.validateDesignData(validData)).toBe(true);
@@ -77,9 +91,9 @@ describe('SchemaValidator', () => {
             position: { x: 0, y: 0 },
             rotation: 0,
             scale: 1,
-            opacity: 0.5
-          }
-        ]
+            opacity: 0.5,
+          },
+        ],
       };
 
       expect(SchemaValidator.validateDesignData(validData)).toBe(true);
@@ -94,8 +108,8 @@ describe('SchemaValidator', () => {
           name: 'Test Design',
           author: 'Test Author',
           created: '2023-01-01',
-          description: 'A test design'
-        }
+          description: 'A test design',
+        },
       };
 
       expect(SchemaValidator.validateDesignData(validData)).toBe(true);
@@ -118,7 +132,7 @@ describe('SchemaValidator', () => {
     it('rejects data missing version', () => {
       const invalidData = {
         shapes: [],
-        backgroundImages: []
+        backgroundImages: [],
       };
 
       expect(SchemaValidator.validateDesignData(invalidData)).toBe(false);
@@ -128,7 +142,7 @@ describe('SchemaValidator', () => {
       const invalidData = {
         version: 123,
         shapes: [],
-        backgroundImages: []
+        backgroundImages: [],
       };
 
       expect(SchemaValidator.validateDesignData(invalidData)).toBe(false);
@@ -138,7 +152,7 @@ describe('SchemaValidator', () => {
       const invalidData = {
         version: '2.0',
         shapes: 'not an array',
-        backgroundImages: []
+        backgroundImages: [],
       };
 
       expect(SchemaValidator.validateDesignData(invalidData)).toBe(false);
@@ -150,10 +164,10 @@ describe('SchemaValidator', () => {
         shapes: [
           {
             type: 'LEAF',
-            radius: 30
-          }
+            radius: 30,
+          },
         ],
-        backgroundImages: []
+        backgroundImages: [],
       };
 
       expect(SchemaValidator.validateDesignData(invalidData)).toBe(false);
@@ -166,10 +180,10 @@ describe('SchemaValidator', () => {
           {
             type: 'LEAF',
             vertices: [{ x: 'invalid', y: 200 }],
-            radius: 30
-          }
+            radius: 30,
+          },
         ],
-        backgroundImages: []
+        backgroundImages: [],
       };
 
       expect(SchemaValidator.validateDesignData(invalidData)).toBe(false);
@@ -181,10 +195,13 @@ describe('SchemaValidator', () => {
         shapes: [
           {
             type: 'LEAF',
-            vertices: [{ x: 100, y: 200 }, { x: 150, y: 250 }]
-          }
+            vertices: [
+              { x: 100, y: 200 },
+              { x: 150, y: 250 },
+            ],
+          },
         ],
-        backgroundImages: []
+        backgroundImages: [],
       };
 
       expect(SchemaValidator.validateDesignData(invalidData)).toBe(false);
@@ -196,10 +213,10 @@ describe('SchemaValidator', () => {
         shapes: [
           {
             type: 'TRI_ARC',
-            curvatures: [-0.2, -0.3, -0.1]
-          }
+            curvatures: [-0.2, -0.3, -0.1],
+          },
         ],
-        backgroundImages: []
+        backgroundImages: [],
       };
 
       expect(SchemaValidator.validateDesignData(invalidData)).toBe(false);
@@ -211,11 +228,15 @@ describe('SchemaValidator', () => {
         shapes: [
           {
             type: 'TRI_ARC',
-            vertices: [{ x: 0, y: 0 }, { x: 100, y: 0 }, { x: 50, y: 100 }],
-            curvatures: ['invalid', -0.3, -0.1]
-          }
+            vertices: [
+              { x: 0, y: 0 },
+              { x: 100, y: 0 },
+              { x: 50, y: 100 },
+            ],
+            curvatures: ['invalid', -0.3, -0.1],
+          },
         ],
-        backgroundImages: []
+        backgroundImages: [],
       };
 
       expect(SchemaValidator.validateDesignData(invalidData)).toBe(false);
@@ -227,10 +248,14 @@ describe('SchemaValidator', () => {
         shapes: [
           {
             type: 'TRI_ARC',
-            vertices: [{ x: 0, y: 0 }, { x: 100, y: 0 }, { x: 50, y: 100 }]
-          }
+            vertices: [
+              { x: 0, y: 0 },
+              { x: 100, y: 0 },
+              { x: 50, y: 100 },
+            ],
+          },
         ],
-        backgroundImages: []
+        backgroundImages: [],
       };
 
       expect(SchemaValidator.validateDesignData(invalidData)).toBe(false);
@@ -241,11 +266,14 @@ describe('SchemaValidator', () => {
         version: '2.0',
         shapes: [
           {
-            vertices: [{ x: 100, y: 200 }, { x: 150, y: 250 }],
-            radius: 30
-          }
+            vertices: [
+              { x: 100, y: 200 },
+              { x: 150, y: 250 },
+            ],
+            radius: 30,
+          },
         ],
-        backgroundImages: []
+        backgroundImages: [],
       };
 
       expect(SchemaValidator.validateDesignData(invalidData)).toBe(false);
@@ -257,11 +285,14 @@ describe('SchemaValidator', () => {
         shapes: [
           {
             type: 123,
-            vertices: [{ x: 100, y: 200 }, { x: 150, y: 250 }],
-            radius: 30
-          }
+            vertices: [
+              { x: 100, y: 200 },
+              { x: 150, y: 250 },
+            ],
+            radius: 30,
+          },
         ],
-        backgroundImages: []
+        backgroundImages: [],
       };
 
       expect(SchemaValidator.validateDesignData(invalidData)).toBe(false);
@@ -271,7 +302,7 @@ describe('SchemaValidator', () => {
       const invalidData = {
         version: '2.0',
         shapes: [],
-        backgroundImages: 'not an array'
+        backgroundImages: 'not an array',
       };
 
       expect(SchemaValidator.validateDesignData(invalidData)).toBe(false);
@@ -283,9 +314,9 @@ describe('SchemaValidator', () => {
         shapes: [],
         backgroundImages: [
           {
-            imageData: 'data:image/png;base64,abc123'
-          }
-        ]
+            imageData: 'data:image/png;base64,abc123',
+          },
+        ],
       };
 
       expect(SchemaValidator.validateDesignData(invalidData)).toBe(false);
@@ -297,9 +328,9 @@ describe('SchemaValidator', () => {
         shapes: [],
         backgroundImages: [
           {
-            id: 'bg1'
-          }
-        ]
+            id: 'bg1',
+          },
+        ],
       };
 
       expect(SchemaValidator.validateDesignData(invalidData)).toBe(false);
@@ -310,7 +341,7 @@ describe('SchemaValidator', () => {
         version: '2.0',
         shapes: [],
         backgroundImages: [],
-        metadata: 'not an object'
+        metadata: 'not an object',
       };
 
       expect(SchemaValidator.validateDesignData(invalidData)).toBe(false);

@@ -43,10 +43,7 @@
       "type": "array",
       "description": "Array of shapes in the design",
       "items": {
-        "oneOf": [
-          { "$ref": "#/definitions/leafShape" },
-          { "$ref": "#/definitions/triArcShape" }
-        ]
+        "oneOf": [{ "$ref": "#/definitions/leafShape" }, { "$ref": "#/definitions/triArcShape" }]
       }
     },
     "backgroundImages": {
@@ -122,7 +119,16 @@
     },
     "backgroundImage": {
       "type": "object",
-      "required": ["id", "imageData", "position", "rotation", "scale", "opacity", "naturalWidth", "naturalHeight"],
+      "required": [
+        "id",
+        "imageData",
+        "position",
+        "rotation",
+        "scale",
+        "opacity",
+        "naturalWidth",
+        "naturalHeight"
+      ],
       "properties": {
         "id": {
           "type": "string",

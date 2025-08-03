@@ -11,7 +11,12 @@ describe('BackgroundImageGeometry', () => {
 
   describe('getCenter', () => {
     it('should calculate center correctly', () => {
-      const result = BackgroundImageGeometry.getCenter(position, naturalWidth, naturalHeight, scale);
+      const result = BackgroundImageGeometry.getCenter(
+        position,
+        naturalWidth,
+        naturalHeight,
+        scale,
+      );
 
       expect(result).toEqual({
         x: 10 + (100 * 1.5) / 2, // 10 + 75 = 85
@@ -36,11 +41,11 @@ describe('BackgroundImageGeometry', () => {
         naturalWidth,
         naturalHeight,
         scale,
-        0
+        0,
       );
 
       expect(corners).toHaveLength(4);
-      
+
       // With scale 1.5: width = 150, height = 300
       // Center at (85, 170)
       expect(corners[0]).toEqual({ x: 10, y: 20 }); // Top-left
@@ -55,11 +60,11 @@ describe('BackgroundImageGeometry', () => {
         100,
         100,
         1,
-        Math.PI / 2 // 90 degrees
+        Math.PI / 2, // 90 degrees
       );
 
       expect(corners).toHaveLength(4);
-      
+
       // For a 100x100 image at (0,0) with 90-degree rotation:
       // Center is at (50, 50)
       // Top-left corner (-50, -50) relative to center becomes (50, -50) after rotation
@@ -75,7 +80,7 @@ describe('BackgroundImageGeometry', () => {
         naturalWidth,
         naturalHeight,
         scale,
-        0
+        0,
       );
 
       expect(bounds).toEqual({
@@ -92,7 +97,7 @@ describe('BackgroundImageGeometry', () => {
         100,
         100,
         1,
-        Math.PI / 4 // 45 degrees
+        Math.PI / 4, // 45 degrees
       );
 
       // 45-degree rotation of a square should increase bounding box
@@ -104,14 +109,14 @@ describe('BackgroundImageGeometry', () => {
   describe('containsPoint', () => {
     it('should return true for point inside image', () => {
       const point = { x: 85, y: 170 }; // Center point
-      
+
       const result = BackgroundImageGeometry.containsPoint(
         point,
         position,
         naturalWidth,
         naturalHeight,
         scale,
-        0
+        0,
       );
 
       expect(result).toBe(true);
@@ -119,14 +124,14 @@ describe('BackgroundImageGeometry', () => {
 
     it('should return false for point outside image', () => {
       const point = { x: 0, y: 0 }; // Outside image bounds
-      
+
       const result = BackgroundImageGeometry.containsPoint(
         point,
         position,
         naturalWidth,
         naturalHeight,
         scale,
-        0
+        0,
       );
 
       expect(result).toBe(false);
@@ -134,14 +139,14 @@ describe('BackgroundImageGeometry', () => {
 
     it('should handle rotation correctly', () => {
       const point = { x: 60, y: 40 }; // Point that should be inside after rotation
-      
+
       const result = BackgroundImageGeometry.containsPoint(
         point,
         { x: 0, y: 0 },
         100,
         100,
         1,
-        Math.PI / 4 // 45 degrees
+        Math.PI / 4, // 45 degrees
       );
 
       // This test verifies rotation logic works
@@ -152,7 +157,7 @@ describe('BackgroundImageGeometry', () => {
   describe('hitTest', () => {
     it('should return BODY for point inside image', () => {
       const point = { x: 85, y: 170 }; // Center point
-      
+
       const result = BackgroundImageGeometry.hitTest(
         point,
         position,
@@ -161,7 +166,7 @@ describe('BackgroundImageGeometry', () => {
         scale,
         0,
         false,
-        1
+        1,
       );
 
       expect(result.region).toBe(HitRegion.BODY);
@@ -169,7 +174,7 @@ describe('BackgroundImageGeometry', () => {
 
     it('should return NONE for point outside image', () => {
       const point = { x: 0, y: 0 }; // Outside image bounds
-      
+
       const result = BackgroundImageGeometry.hitTest(
         point,
         position,
@@ -178,7 +183,7 @@ describe('BackgroundImageGeometry', () => {
         scale,
         0,
         false,
-        1
+        1,
       );
 
       expect(result.region).toBe(HitRegion.NONE);
@@ -186,14 +191,19 @@ describe('BackgroundImageGeometry', () => {
 
     it('should test for rotation handle when selected', () => {
       // Calculate the rotation handle position
-      const center = BackgroundImageGeometry.getCenter(position, naturalWidth, naturalHeight, scale);
+      const center = BackgroundImageGeometry.getCenter(
+        position,
+        naturalWidth,
+        naturalHeight,
+        scale,
+      );
       const handleDistance = 30; // pixelScale = 1
       const height = naturalHeight * scale; // 200 * 1.5 = 300
       const handlePos = {
         x: center.x + Math.sin(0) * (height / 2 + handleDistance), // sin(0) = 0, so x = center.x
         y: center.y + Math.cos(0) * (height / 2 + handleDistance), // cos(0) = 1, so y = center.y + 180
       };
-      
+
       const result = BackgroundImageGeometry.hitTest(
         handlePos,
         position,
@@ -202,7 +212,7 @@ describe('BackgroundImageGeometry', () => {
         scale,
         0,
         true, // selected
-        1
+        1,
       );
 
       expect(result.region).toBe(HitRegion.ROTATION_HANDLE);
@@ -210,7 +220,7 @@ describe('BackgroundImageGeometry', () => {
 
     it('should not test for handles when not selected', () => {
       const corner = { x: 10, y: 20 }; // Top-left corner
-      
+
       const result = BackgroundImageGeometry.hitTest(
         corner,
         position,
@@ -219,7 +229,7 @@ describe('BackgroundImageGeometry', () => {
         scale,
         0,
         false, // not selected
-        1
+        1,
       );
 
       expect(result.region).toBe(HitRegion.BODY);
@@ -237,7 +247,7 @@ describe('BackgroundImageGeometry', () => {
         startPoint,
         endPoint,
         center,
-        originalScale
+        originalScale,
       );
 
       expect(result).toBe(2.0); // 20/10 = 2x scale
@@ -253,7 +263,7 @@ describe('BackgroundImageGeometry', () => {
         startPoint,
         endPoint,
         center,
-        originalScale
+        originalScale,
       );
 
       expect(result).toBe(originalScale); // Should return original scale
@@ -271,13 +281,13 @@ describe('BackgroundImageGeometry', () => {
         canvasWidth,
         canvasHeight,
         imageWidth,
-        imageHeight
+        imageHeight,
       );
 
       // Available space: 700x500 (with 50px margin on each side)
       // Scale should be min(700/400, 500/200) = min(1.75, 2.5) = 1.75
       expect(result.scale).toBe(1.75);
-      
+
       // Image should be centered
       const scaledWidth = imageWidth * 1.75; // 700
       const scaledHeight = imageHeight * 1.75; // 350
@@ -295,7 +305,7 @@ describe('BackgroundImageGeometry', () => {
         canvasWidth,
         canvasHeight,
         imageWidth,
-        imageHeight
+        imageHeight,
       );
 
       // Available space: 700x500

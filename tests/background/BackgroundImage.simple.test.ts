@@ -8,7 +8,7 @@ global.Image = class MockImage {
   naturalWidth = 100;
   naturalHeight = 80;
   src = '';
-  
+
   constructor() {
     setTimeout(() => {
       if (this.onload) {
@@ -27,7 +27,7 @@ global.document = {
   dispatchEvent: vi.fn(),
   getElementById: vi.fn(() => null),
   createElement: vi.fn(() => ({ id: '', appendChild: vi.fn() })),
-  body: { appendChild: vi.fn() }
+  body: { appendChild: vi.fn() },
 } as any;
 global.requestAnimationFrame = vi.fn((cb) => setTimeout(cb, 0));
 
@@ -50,14 +50,14 @@ describe('BackgroundImage - Core Functionality', () => {
 
     beforeEach(async () => {
       image = new BackgroundImage('data:image/png;base64,test');
-      await new Promise(resolve => setTimeout(resolve, 10)); // Wait for load
+      await new Promise((resolve) => setTimeout(resolve, 10)); // Wait for load
     });
 
     it('should move correctly', () => {
       const initialCenter = image.getCenter();
       image.move({ x: 10, y: 5 });
       const newCenter = image.getCenter();
-      
+
       expect(newCenter.x).toBe(initialCenter.x + 10);
       expect(newCenter.y).toBe(initialCenter.y + 5);
     });
@@ -65,10 +65,10 @@ describe('BackgroundImage - Core Functionality', () => {
     it('should clamp opacity', () => {
       image.setOpacity(0.7);
       expect(image.toJSON().opacity).toBe(0.7);
-      
+
       image.setOpacity(-0.5);
       expect(image.toJSON().opacity).toBe(0);
-      
+
       image.setOpacity(1.5);
       expect(image.toJSON().opacity).toBe(1);
     });
@@ -82,7 +82,7 @@ describe('BackgroundImage - Core Functionality', () => {
       const initialCenter = image.getCenter();
       image.setScale(2);
       const newCenter = image.getCenter();
-      
+
       expect(Math.abs(newCenter.x - initialCenter.x)).toBeLessThan(0.001);
       expect(Math.abs(newCenter.y - initialCenter.y)).toBeLessThan(0.001);
     });
@@ -93,7 +93,7 @@ describe('BackgroundImage - Core Functionality', () => {
 
     beforeEach(async () => {
       image = new BackgroundImage('data:image/png;base64,test');
-      await new Promise(resolve => setTimeout(resolve, 10));
+      await new Promise((resolve) => setTimeout(resolve, 10));
     });
 
     it('should calculate bounds correctly', () => {
@@ -112,7 +112,7 @@ describe('BackgroundImage - Core Functionality', () => {
       const center = image.getCenter();
       const hitResult = image.hitTest(center, 1);
       expect(hitResult.region).toBe(HitRegion.BODY);
-      
+
       const missResult = image.hitTest({ x: 9999, y: 9999 }, 1);
       expect(missResult.region).toBe(HitRegion.NONE);
     });
@@ -121,16 +121,16 @@ describe('BackgroundImage - Core Functionality', () => {
   describe('Serialization', () => {
     it('should serialize and restore correctly', async () => {
       const image = new BackgroundImage('data:image/png;base64,test', { x: 10, y: 20 }, 'test_id');
-      await new Promise(resolve => setTimeout(resolve, 10));
-      
+      await new Promise((resolve) => setTimeout(resolve, 10));
+
       image.setOpacity(0.8);
       image.setRotation(Math.PI / 2);
-      
+
       const json = image.toJSON();
       expect(json.id).toBe('test_id');
       expect(json.opacity).toBe(0.8);
       expect(json.rotation).toBe(Math.PI / 2);
-      
+
       const restored = BackgroundImage.fromJSON(json);
       expect(restored.id).toBe('test_id');
       expect(restored.getRotation()).toBe(Math.PI / 2);

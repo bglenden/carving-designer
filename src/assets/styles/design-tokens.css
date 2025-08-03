@@ -7,7 +7,7 @@
 
 :root {
   /* === COLOR TOKENS === */
-  
+
   /* Brand Colors */
   --color-brand-50: #f0f9ff;
   --color-brand-100: #e0f2fe;
@@ -119,7 +119,7 @@
 }
 
 /* === DARK THEME OVERRIDES === */
-[data-theme="dark"] {
+[data-theme='dark'] {
   --color-canvas-bg: var(--color-neutral-900);
   --color-canvas-grid: var(--color-neutral-800);
   --color-canvas-border: var(--color-neutral-700);
@@ -133,7 +133,7 @@
 }
 
 /* === HIGH CONTRAST THEME === */
-[data-theme="high-contrast"] {
+[data-theme='high-contrast'] {
   --color-brand-500: #ffffff;
   --color-toolbar-bg: #000000;
   --color-toolbar-hover: #333333;

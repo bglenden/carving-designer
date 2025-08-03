@@ -5,17 +5,19 @@ import { Point, HitRegion } from '../../src/core/types.js';
 
 // Mock BackgroundImage to avoid image loading complexity
 vi.mock('../../src/background/BackgroundImage.js', () => ({
-  BackgroundImage: vi.fn().mockImplementation((imageData: string, position?: Point, id?: string) => {
-    const mockId = id || `mock_${Math.random().toString(36).substr(2, 9)}`;
-    return {
-      id: mockId,
-      selected: false,
-      setOpacity: vi.fn(),
-      hitTest: vi.fn(() => ({ region: HitRegion.NONE })),
-      draw: vi.fn(),
-      toJSON: vi.fn(() => ({ id: mockId, imageData, position: position || { x: 0, y: 0 } })),
-    };
-  })
+  BackgroundImage: vi
+    .fn()
+    .mockImplementation((imageData: string, position?: Point, id?: string) => {
+      const mockId = id || `mock_${Math.random().toString(36).substr(2, 9)}`;
+      return {
+        id: mockId,
+        selected: false,
+        setOpacity: vi.fn(),
+        hitTest: vi.fn(() => ({ region: HitRegion.NONE })),
+        draw: vi.fn(),
+        toJSON: vi.fn(() => ({ id: mockId, imageData, position: position || { x: 0, y: 0 } })),
+      };
+    }),
 }));
 
 // Ensure document.getElementById exists for setupTests.ts compatibility
@@ -54,10 +56,10 @@ describe('BackgroundImageManager - Core Functionality', () => {
     it('should remove images', () => {
       const image1 = manager.addImage('data1');
       const image2 = manager.addImage('data2');
-      
+
       manager.removeImage(image1);
       const images = manager.getImages();
-      
+
       expect(images).toHaveLength(1);
       expect(images[0]).toBe(image2);
     });
@@ -65,9 +67,9 @@ describe('BackgroundImageManager - Core Functionality', () => {
     it('should clear all images', () => {
       manager.addImage('data1');
       manager.addImage('data2');
-      
+
       manager.clear();
-      
+
       expect(manager.getImages()).toHaveLength(0);
       expect(manager.getSelectedImage()).toBeNull();
     });

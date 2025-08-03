@@ -3,7 +3,8 @@ import { BackgroundImage } from '../../src/background/BackgroundImage.js';
 import { BackgroundImageData } from '../../src/background/BackgroundImageData.js';
 
 describe('Background Image Opacity Persistence', () => {
-  const testImageData = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChAFAqOy8NgAAAABJRU5ErkJggg==';
+  const testImageData =
+    'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChAFAqOy8NgAAAABJRU5ErkJggg==';
 
   it('should preserve opacity when serializing to JSON', () => {
     const image = new BackgroundImage(testImageData, { x: 10, y: 20 });

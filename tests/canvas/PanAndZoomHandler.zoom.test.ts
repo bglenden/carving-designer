@@ -71,7 +71,7 @@ describe('PanAndZoomHandler - Zoom Functionality', () => {
       canvas.dispatchEvent(wheelEvent);
 
       expect(onZoom).toHaveBeenCalledTimes(1);
-      
+
       // Should use canvas center (400, 300), not mouse position
       const [newScale, center] = onZoom.mock.calls[0];
       expect(center).toEqual({ x: 400, y: 300 }); // Canvas center (width/2, height/2)
@@ -138,7 +138,7 @@ describe('PanAndZoomHandler - Zoom Functionality', () => {
       canvas.dispatchEvent(touchMoveEvent1);
 
       expect(onZoom).toHaveBeenCalledTimes(1);
-      
+
       // Should use initial center point (400, 300)
       const [, center1] = onZoom.mock.calls[0];
       expect(center1).toEqual({ x: 400, y: 300 });
@@ -151,7 +151,7 @@ describe('PanAndZoomHandler - Zoom Functionality', () => {
       canvas.dispatchEvent(touchMoveEvent2);
 
       expect(onZoom).toHaveBeenCalledTimes(2);
-      
+
       // Should still use the same fixed center point
       const [, center2] = onZoom.mock.calls[1];
       expect(center2).toEqual({ x: 400, y: 300 }); // Same as before
@@ -161,19 +161,23 @@ describe('PanAndZoomHandler - Zoom Functionality', () => {
       getScale.mockReturnValue(2); // Current scale
 
       // Start pinch
-      canvas.dispatchEvent(createTouchEvent('touchstart', [
-        { clientX: 300, clientY: 300 },
-        { clientX: 500, clientY: 300 },
-      ]));
+      canvas.dispatchEvent(
+        createTouchEvent('touchstart', [
+          { clientX: 300, clientY: 300 },
+          { clientX: 500, clientY: 300 },
+        ]),
+      );
 
       // Move to double the distance (2x zoom factor)
-      canvas.dispatchEvent(createTouchEvent('touchmove', [
-        { clientX: 200, clientY: 300 },
-        { clientX: 600, clientY: 300 },
-      ]));
+      canvas.dispatchEvent(
+        createTouchEvent('touchmove', [
+          { clientX: 200, clientY: 300 },
+          { clientX: 600, clientY: 300 },
+        ]),
+      );
 
       expect(onZoom).toHaveBeenCalledTimes(1);
-      
+
       // With 50% dampening: 1 + (2 - 1) * 0.5 = 1.5
       // Applied to scale 2: 2 * 1.5 = 3
       const [newScale] = onZoom.mock.calls[0];
@@ -182,48 +186,54 @@ describe('PanAndZoomHandler - Zoom Functionality', () => {
 
     it('should handle pinch-to-pan transition without accidental panning', () => {
       // Start pinch
-      canvas.dispatchEvent(createTouchEvent('touchstart', [
-        { clientX: 300, clientY: 300 },
-        { clientX: 500, clientY: 300 },
-      ]));
+      canvas.dispatchEvent(
+        createTouchEvent('touchstart', [
+          { clientX: 300, clientY: 300 },
+          { clientX: 500, clientY: 300 },
+        ]),
+      );
 
       // Do a pinch zoom
-      canvas.dispatchEvent(createTouchEvent('touchmove', [
-        { clientX: 250, clientY: 300 },
-        { clientX: 550, clientY: 300 },
-      ]));
+      canvas.dispatchEvent(
+        createTouchEvent('touchmove', [
+          { clientX: 250, clientY: 300 },
+          { clientX: 550, clientY: 300 },
+        ]),
+      );
 
       expect(onZoom).toHaveBeenCalledTimes(1);
 
       // Lift one finger (transition to single touch)
-      canvas.dispatchEvent(createTouchEvent('touchend', [
-        { clientX: 250, clientY: 300 }, // Only one touch remains
-      ]));
+      canvas.dispatchEvent(
+        createTouchEvent('touchend', [
+          { clientX: 250, clientY: 300 }, // Only one touch remains
+        ]),
+      );
 
       // Immediately move the remaining finger - should NOT trigger panning
-      canvas.dispatchEvent(createTouchEvent('touchmove', [
-        { clientX: 260, clientY: 310 }, // Small movement
-      ]));
+      canvas.dispatchEvent(
+        createTouchEvent('touchmove', [
+          { clientX: 260, clientY: 310 }, // Small movement
+        ]),
+      );
 
       expect(onPan).not.toHaveBeenCalled(); // Should be blocked by transition delay
     });
 
     it('should allow panning after transition delay', (done) => {
       // Start and end pinch
-      canvas.dispatchEvent(createTouchEvent('touchstart', [
-        { clientX: 300, clientY: 300 },
-        { clientX: 500, clientY: 300 },
-      ]));
+      canvas.dispatchEvent(
+        createTouchEvent('touchstart', [
+          { clientX: 300, clientY: 300 },
+          { clientX: 500, clientY: 300 },
+        ]),
+      );
 
-      canvas.dispatchEvent(createTouchEvent('touchend', [
-        { clientX: 300, clientY: 300 },
-      ]));
+      canvas.dispatchEvent(createTouchEvent('touchend', [{ clientX: 300, clientY: 300 }]));
 
       // Wait for transition delay (200ms) then try panning
       setTimeout(() => {
-        canvas.dispatchEvent(createTouchEvent('touchmove', [
-          { clientX: 350, clientY: 350 },
-        ]));
+        canvas.dispatchEvent(createTouchEvent('touchmove', [{ clientX: 350, clientY: 350 }]));
 
         expect(onPan).toHaveBeenCalledTimes(1); // Should now allow panning
         done();
@@ -234,22 +244,20 @@ describe('PanAndZoomHandler - Zoom Functionality', () => {
   describe('State Management', () => {
     it('should reset pinch state when all touches end', () => {
       // Start pinch
-      canvas.dispatchEvent(createTouchEvent('touchstart', [
-        { clientX: 300, clientY: 300 },
-        { clientX: 500, clientY: 300 },
-      ]));
+      canvas.dispatchEvent(
+        createTouchEvent('touchstart', [
+          { clientX: 300, clientY: 300 },
+          { clientX: 500, clientY: 300 },
+        ]),
+      );
 
       // End all touches
       canvas.dispatchEvent(createTouchEvent('touchend', []));
 
       // Start new single touch - should work normally (no transition delay)
-      canvas.dispatchEvent(createTouchEvent('touchstart', [
-        { clientX: 400, clientY: 400 },
-      ]));
+      canvas.dispatchEvent(createTouchEvent('touchstart', [{ clientX: 400, clientY: 400 }]));
 
-      canvas.dispatchEvent(createTouchEvent('touchmove', [
-        { clientX: 450, clientY: 450 },
-      ]));
+      canvas.dispatchEvent(createTouchEvent('touchmove', [{ clientX: 450, clientY: 450 }]));
 
       expect(onPan).toHaveBeenCalledTimes(1); // Should pan immediately
     });
@@ -259,11 +267,13 @@ describe('PanAndZoomHandler - Zoom Functionality', () => {
       handler.setEditMode(true);
 
       // Try wheel zoom
-      canvas.dispatchEvent(new WheelEvent('wheel', {
-        deltaY: 100,
-        bubbles: true,
-        cancelable: true,
-      }));
+      canvas.dispatchEvent(
+        new WheelEvent('wheel', {
+          deltaY: 100,
+          bubbles: true,
+          cancelable: true,
+        }),
+      );
 
       // Should still allow zoom in edit mode
       expect(onZoom).toHaveBeenCalled();
@@ -273,14 +283,10 @@ describe('PanAndZoomHandler - Zoom Functionality', () => {
   describe('Performance Optimizations', () => {
     it('should call draw on pan operations', () => {
       // Start pan
-      canvas.dispatchEvent(createTouchEvent('touchstart', [
-        { clientX: 400, clientY: 300 },
-      ]));
+      canvas.dispatchEvent(createTouchEvent('touchstart', [{ clientX: 400, clientY: 300 }]));
 
       // Do a single pan move
-      canvas.dispatchEvent(createTouchEvent('touchmove', [
-        { clientX: 450, clientY: 350 },
-      ]));
+      canvas.dispatchEvent(createTouchEvent('touchmove', [{ clientX: 450, clientY: 350 }]));
 
       // Should call both pan and draw
       expect(onPan).toHaveBeenCalledTimes(1);

@@ -40,14 +40,20 @@ describe('App', () => {
       addShape(..._args: any[]) {}
       removeShapes(..._args: any[]) {}
       setShapes(..._args: any[]) {}
-      getShapes() { return []; }
+      getShapes() {
+        return [];
+      }
       draw() {}
       zoomIn() {}
       zoomOut() {}
       zoomToFit() {}
-      getCanvas() { return { addEventListener: vi.fn() }; }
+      getCanvas() {
+        return { addEventListener: vi.fn() };
+      }
       handleResize() {}
-      getPanAndZoomHandler() { return { handleWheel: vi.fn() }; }
+      getPanAndZoomHandler() {
+        return { handleWheel: vi.fn() };
+      }
     }
     mockCanvasManager = new MockCanvasManager();
     vi.spyOn(mockCanvasManager, 'addShape');

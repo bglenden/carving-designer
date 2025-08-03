@@ -1,12 +1,13 @@
+/* Import design tokens - must come before tailwind directives */
+@import '../src/assets/styles/design-tokens.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Import design tokens */
-@import '../src/assets/styles/design-tokens.css';
-
 /* Prevent default browser zoom and touch behaviors */
-html, body {
+html,
+body {
   touch-action: none;
   user-select: none;
   -webkit-user-select: none;
