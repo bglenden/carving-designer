@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0" />
+    <title>Chip Carving Design System</title>
+  </head>
+  <body class="bg-gray-900 text-gray-100 flex flex-col h-screen overflow-hidden">
+    <main class="flex-grow relative">
+      <canvas id="design-canvas" class="w-full h-full block bg-white pointer-events-auto"></canvas>
+      <div
+        id="primary-toolbar"
+        class="absolute top-2 left-2 flex flex-col w-16 bg-gray-800 p-1 rounded-lg shadow-lg pointer-events-auto z-10"
+      ></div>
+      <div
+        id="status-bar"
+        class="absolute top-2 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-sm p-2 rounded-md font-mono w-auto text-center hidden pointer-events-auto z-10"
+      ></div>
+      <div
+        id="coordinate-display"
+        class="absolute bottom-2 right-2 bg-gray-800 text-white text-sm p-2 rounded-md font-mono w-56 text-center pointer-events-auto z-10"
+      ></div>
+    </main>
+    <script type="module" src="./src/index.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,226 @@
+/**
+ * Design Tokens - CSS Custom Properties
+ * 
+ * These CSS custom properties provide a foundation for theming
+ * and can be overridden for dark mode or custom themes.
+ */
+
+:root {
+  /* === COLOR TOKENS === */
+  
+  /* Brand Colors */
+  --color-brand-50: #f0f9ff;
+  --color-brand-100: #e0f2fe;
+  --color-brand-200: #bae6fd;
+  --color-brand-300: #7dd3fc;
+  --color-brand-400: #38bdf8;
+  --color-brand-500: #0ea5e9;
+  --color-brand-600: #0284c7;
+  --color-brand-700: #0369a1;
+  --color-brand-800: #075985;
+  --color-brand-900: #0c4a6e;
+
+  /* Semantic Colors */
+  --color-success: #22c55e;
+  --color-success-light: #dcfce7;
+  --color-warning: #f59e0b;
+  --color-warning-light: #fef3c7;
+  --color-error: #ef4444;
+  --color-error-light: #fee2e2;
+
+  /* Neutral Colors */
+  --color-neutral-0: #ffffff;
+  --color-neutral-50: #fafafa;
+  --color-neutral-100: #f4f4f5;
+  --color-neutral-200: #e4e4e7;
+  --color-neutral-300: #d4d4d8;
+  --color-neutral-400: #a1a1aa;
+  --color-neutral-500: #71717a;
+  --color-neutral-600: #52525b;
+  --color-neutral-700: #3f3f46;
+  --color-neutral-800: #27272a;
+  --color-neutral-850: #1f1f23;
+  --color-neutral-900: #18181b;
+  --color-neutral-950: #09090b;
+
+  /* Component-specific Colors */
+  --color-canvas-bg: var(--color-neutral-0);
+  --color-canvas-grid: #f1f5f9;
+  --color-canvas-border: #e2e8f0;
+
+  --color-toolbar-bg: var(--color-neutral-800);
+  --color-toolbar-hover: var(--color-neutral-700);
+  --color-toolbar-active: var(--color-brand-500);
+  --color-toolbar-border: var(--color-neutral-700);
+
+  --color-shape-fill: #f8fafc;
+  --color-shape-stroke: #334155;
+  --color-shape-selected: var(--color-brand-500);
+  --color-shape-hover: var(--color-brand-400);
+
+  /* === SPACING TOKENS === */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+
+  /* === TYPOGRAPHY TOKENS === */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* === BORDER RADIUS TOKENS === */
+  --border-radius-sm: 0.25rem;
+  --border-radius-base: 0.375rem;
+  --border-radius-md: 0.5rem;
+  --border-radius-lg: 0.75rem;
+  --border-radius-xl: 1rem;
+
+  /* === SHADOW TOKENS === */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+
+  /* === ANIMATION TOKENS === */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 350ms;
+
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* === Z-INDEX TOKENS === */
+  --z-base: 0;
+  --z-dropdown: 10;
+  --z-sticky: 20;
+  --z-fixed: 30;
+  --z-modal-backdrop: 40;
+  --z-modal: 50;
+  --z-popover: 60;
+  --z-tooltip: 70;
+  --z-toast: 80;
+}
+
+/* === DARK THEME OVERRIDES === */
+[data-theme="dark"] {
+  --color-canvas-bg: var(--color-neutral-900);
+  --color-canvas-grid: var(--color-neutral-800);
+  --color-canvas-border: var(--color-neutral-700);
+
+  --color-toolbar-bg: var(--color-neutral-950);
+  --color-toolbar-hover: var(--color-neutral-800);
+  --color-toolbar-border: var(--color-neutral-800);
+
+  --color-shape-fill: var(--color-neutral-800);
+  --color-shape-stroke: var(--color-neutral-300);
+}
+
+/* === HIGH CONTRAST THEME === */
+[data-theme="high-contrast"] {
+  --color-brand-500: #ffffff;
+  --color-toolbar-bg: #000000;
+  --color-toolbar-hover: #333333;
+  --color-toolbar-active: #ffffff;
+  --color-neutral-800: #000000;
+  --color-neutral-100: #ffffff;
+  --shadow-base: 0 0 0 2px #ffffff;
+  --shadow-md: 0 0 0 3px #ffffff;
+}
+
+/* === COMPONENT STYLES USING TOKENS === */
+
+/* Button Base Styles */
+.btn-design-system {
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius-base);
+  font-weight: var(--font-weight-medium);
+  transition: all var(--duration-fast) var(--ease-out);
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-toolbar {
+  background-color: var(--color-toolbar-bg);
+  color: var(--color-neutral-100);
+  border-color: var(--color-toolbar-border);
+  box-shadow: var(--shadow-base);
+}
+
+.btn-toolbar:hover {
+  background-color: var(--color-toolbar-hover);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-toolbar:active {
+  box-shadow: var(--shadow-inner);
+}
+
+.btn-toolbar.active {
+  background-color: var(--color-toolbar-active);
+  border-color: var(--color-toolbar-active);
+  color: var(--color-neutral-0);
+}
+
+/* Toolbar Styles */
+.toolbar-design-system {
+  display: flex;
+  background-color: var(--color-toolbar-bg);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--color-toolbar-border);
+  padding: var(--spacing-xs);
+  gap: var(--spacing-xs);
+}
+
+/* Focus Ring for Accessibility */
+.focus-ring:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-brand-500);
+}
+
+/* Icon Container */
+.icon-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Smooth transitions for all interactive elements */
+.interactive {
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+/* Utility classes for consistent spacing */
+.gap-design-system {
+  gap: var(--spacing-xs);
+}
+
+.p-design-system {
+  padding: var(--spacing-sm);
+}
+
+.m-design-system {
+  margin: var(--spacing-sm);
+}
