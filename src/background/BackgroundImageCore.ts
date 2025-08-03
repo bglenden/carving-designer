@@ -94,6 +94,15 @@ export class BackgroundImageCore {
     this.img.src = newImageData;
   }
 
+  protected restoreFromJSONData(data: BackgroundImageData): void {
+    this.rotation = data.rotation;
+    this.scale = data.scale;
+    this.opacity = data.opacity;
+    this.naturalWidth = data.naturalWidth;
+    this.naturalHeight = data.naturalHeight;
+    this.loaded = true;
+  }
+
   public toJSON(): BackgroundImageData {
     return BgImageData.toJSON({
       id: this.id,

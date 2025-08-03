@@ -66,24 +66,11 @@ export class BackgroundImage extends BackgroundImageInteraction {
     const startTime = performance.now();
     console.log(`[PERF] BackgroundImage.fromJSON started for ${data.id}`);
 
-    // Call the base class fromJSON to get a core instance
-    const coreInstance = BackgroundImageInteraction.fromJSON(data);
+    // Create a new BackgroundImage directly with the data
+    const img = new BackgroundImage(data.imageData, data.position, data.id, true);
 
-    // Create a new BackgroundImage with the same data
-    const img = new BackgroundImage(
-      coreInstance.imageData,
-      coreInstance.position,
-      coreInstance.id,
-      true,
-    );
-
-    // Copy all properties from the core instance
-    img.rotation = coreInstance.rotation;
-    img.scale = coreInstance.scale;
-    img.opacity = coreInstance.opacity;
-    img.naturalWidth = coreInstance.naturalWidth;
-    img.naturalHeight = coreInstance.naturalHeight;
-    img.loaded = coreInstance.loaded;
+    // Use the protected method to restore properties from JSON data
+    img.restoreFromJSONData(data);
 
     const endTime = performance.now();
     console.log(
