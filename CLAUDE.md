@@ -99,10 +99,13 @@ The application follows a Manager/Handler pattern with clear separation of conce
 
 ### Testing Strategy
 
-- Unit tests for all core managers and shapes
-- Integration tests for complex interactions
+- 501 passing unit and integration tests across 40 test files
+- Test coverage: 55.87% overall (80.52% branch coverage)
+  - Well-tested areas: Shapes (88%), Geometry (76%), App layer (80%)
+  - Areas needing improvement: UI components (24%), Canvas rendering (54%)
 - Mock implementations in `__mocks__` directories
 - Test utilities in `tests/mocks/` for common test setups
+- Run tests with `npm test` or `npm run test:coverage`
 
 ### File Format
 

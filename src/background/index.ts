@@ -5,6 +5,5 @@ export { BackgroundImageHandler, BackgroundImageMode } from './BackgroundImageHa
 export { BackgroundImageManager } from './BackgroundImageManager.js';
 export { BackgroundImageRenderer } from './BackgroundImageRenderer.js';
 export { CalibrationManager } from './CalibrationManager.js';
-export { GeometryUtils } from './GeometryUtils.js';
 export { ImageCompressionUtil } from './ImageCompressionUtil.js';
 export { RenderingUtils } from './RenderingUtils.js';
