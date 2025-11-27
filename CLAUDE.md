@@ -9,7 +9,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 npm run dev
 
 # Build for production
-npm run build
+npm run build           # Multi-file build (for web hosting)
+npm run build:single    # Single-file build (chip-carving-designer.html)
 
 # Run tests
 npm test                # Run all tests once
@@ -42,6 +43,17 @@ npm link @carving/schema
 cd ../carving-schema
 npm run build
 ```
+
+## Distribution
+
+The application can be built in two ways:
+
+1. **Multi-file build** (`npm run build`): Creates separate HTML, CSS, and JS files in `dist/` - ideal for web hosting with better caching
+2. **Single-file build** (`npm run build:single`): Creates a self-contained `chip-carving-designer.html` file - ideal for easy distribution (email, USB, etc.) that can be opened directly in any browser
+
+### Future Improvements
+
+- **Version numbering in filename**: Consider adding version numbers to single-file builds (e.g., `chip-carving-designer-v1.0.0.html`) when distributing updates to help users track which version they have
 
 ## Architecture Overview
 
