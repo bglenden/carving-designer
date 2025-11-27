@@ -21,37 +21,39 @@ export class JiggleModal {
     const modalContent = `
     <div class="p-6 max-w-sm select-none">
       <div id="jiggle-modal-header" class="flex justify-between items-center mb-4 cursor-move">
-        <h3 class="text-lg font-bold text-gray-100">Jiggle Selected Shapes</h3>
-        <button id="jiggle-close-btn" class="text-gray-400 hover:text-white text-xl leading-none">&times;</button>
+        <h3 class="text-lg font-semibold text-neutral-50 flex items-center gap-2">
+          <span class="text-brand-400">✨</span> Jiggle Selected Shapes
+        </h3>
+        <button id="jiggle-close-btn" class="text-neutral-500 hover:text-neutral-200 text-xl leading-none transition-colors">&times;</button>
       </div>
-      
-      <p class="text-sm text-gray-300 mb-4">Add random variation to make shapes look less machine-generated:</p>
-      
+
+      <p class="text-sm text-neutral-400 mb-5">Add random variation to make shapes look less machine-generated:</p>
+
       <div class="space-y-4">
         <div>
-          <label class="block text-sm font-medium text-gray-300 mb-1">Position Variation (±mm)</label>
-          <input id="position-variation" type="number" value="1.0" step="0.1" min="0" max="10" 
-                 class="w-full px-3 py-2 bg-gray-700 text-white rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
-        </div>
-        
-        <div>
-          <label class="block text-sm font-medium text-gray-300 mb-1">Rotation Variation (±degrees)</label>
-          <input id="rotation-variation" type="number" value="5.0" step="0.5" min="0" max="45" 
-                 class="w-full px-3 py-2 bg-gray-700 text-white rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <label class="block text-sm font-medium text-neutral-300 mb-1.5">Position Variation (±mm)</label>
+          <input id="position-variation" type="number" value="1.0" step="0.1" min="0" max="10"
+                 class="w-full px-3 py-2.5 bg-neutral-900/50 text-neutral-100 rounded-lg border border-neutral-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-all">
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-300 mb-1">Radius Variation (±% of current radius)</label>
-          <input id="radius-variation" type="number" value="5.0" step="1.0" min="0" max="50" 
-                 class="w-full px-3 py-2 bg-gray-700 text-white rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <label class="block text-sm font-medium text-neutral-300 mb-1.5">Rotation Variation (±degrees)</label>
+          <input id="rotation-variation" type="number" value="5.0" step="0.5" min="0" max="45"
+                 class="w-full px-3 py-2.5 bg-neutral-900/50 text-neutral-100 rounded-lg border border-neutral-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-all">
         </div>
-        
-        <div class="space-y-3 pt-2">
-          <button id="jiggle-apply-btn" class="w-full px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 active:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors duration-75">
+
+        <div>
+          <label class="block text-sm font-medium text-neutral-300 mb-1.5">Radius Variation (±% of current radius)</label>
+          <input id="radius-variation" type="number" value="5.0" step="1.0" min="0" max="50"
+                 class="w-full px-3 py-2.5 bg-neutral-900/50 text-neutral-100 rounded-lg border border-neutral-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-all">
+        </div>
+
+        <div class="space-y-3 pt-3">
+          <button id="jiggle-apply-btn" class="w-full px-4 py-2.5 bg-gradient-to-b from-brand-500 to-brand-600 text-neutral-900 font-medium rounded-lg hover:from-brand-400 hover:to-brand-500 active:from-brand-600 active:to-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 focus:ring-offset-neutral-800 transition-all duration-150 shadow-lg shadow-brand-500/20">
             Apply Jiggle
           </button>
-          
-          <button id="jiggle-close-bottom-btn" class="w-full px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 active:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-colors duration-75">
+
+          <button id="jiggle-close-bottom-btn" class="w-full px-4 py-2.5 bg-neutral-700/50 text-neutral-300 font-medium rounded-lg border border-neutral-600 hover:bg-neutral-700 hover:text-neutral-100 active:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:ring-offset-2 focus:ring-offset-neutral-800 transition-all duration-150">
             Close
           </button>
         </div>
@@ -65,9 +67,10 @@ export class JiggleModal {
 
     const modal = document.createElement('div');
     modal.id = 'jiggle-modal';
-    modal.className = 'absolute bg-gray-800 rounded-lg shadow-xl max-w-sm pointer-events-auto';
-    modal.style.left = '50px';
-    modal.style.top = '50px';
+    modal.className =
+      'absolute bg-gradient-to-b from-neutral-800 to-neutral-850 rounded-xl shadow-2xl max-w-sm pointer-events-auto border border-neutral-700/50';
+    modal.style.left = '80px';
+    modal.style.top = '80px';
     modal.innerHTML = modalContent;
 
     this.overlay.appendChild(modal);

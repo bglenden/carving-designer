@@ -35,30 +35,37 @@ export interface IconOptions {
 
 export class IconRegistry {
   private static icons: Record<IconName, string> = {
+    // File/Menu icon - Horizontal hamburger menu (conventional)
     file: `<svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V16C4 16.5304 4.21071 17.0391 4.58579 17.4142C4.96086 17.7893 5.46957 18 6 18H14C14.5304 18 15.0391 17.7893 15.4142 17.4142C15.7893 17.0391 16 16.5304 16 16V6L12 2Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M12 2V6H16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M3 5H17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M3 10H17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M3 15H17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
     </svg>`,
 
+    // Add/Plus icon - Simple plus sign (universal)
     addShape: `<svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M10 4V16M4 10H16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M10 4V16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <path d="M4 10H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
     </svg>`,
 
+    // Edit/Cursor icon - Arrow pointer with selection box (like Figma/Sketch)
     edit: `<svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M14.5 2.5C14.8978 2.10218 15.4374 1.87868 16 1.87868C16.5626 1.87868 17.1022 2.10218 17.5 2.5C17.8978 2.89782 18.1213 3.43739 18.1213 4C18.1213 4.56261 17.8978 5.10218 17.5 5.5L6 17L2 18L3 14L14.5 2.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M4 4L9 17L11 11L17 9L4 4Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M11 11L16 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
     </svg>`,
 
+    // Background/Image icon - Picture frame with landscape (conventional)
     background: `<svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="3" y="3" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/>
-      <path d="M9 9L15 3M3 15L7 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      <circle cx="7.5" cy="7.5" r="1.5" stroke="currentColor" stroke-width="1.5"/>
+      <rect x="2" y="4" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/>
+      <circle cx="6.5" cy="8" r="1.5" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M2 13L6 10L9 12L14 8L18 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>`,
 
+    // Help icon - Question mark in circle (universal)
     help: `<svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5"/>
-      <path d="M7.5 7.5C7.5 6.11929 8.61929 5 10 5C11.3807 5 12.5 6.11929 12.5 7.5C12.5 8.88071 11.3807 10 10 10V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-      <circle cx="10" cy="14" r="0.5" fill="currentColor"/>
+      <path d="M7.5 7.5C7.5 6.11929 8.61929 5 10 5C11.3807 5 12.5 6.11929 12.5 7.5C12.5 8.88071 11.3807 10 10 10V12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <circle cx="10" cy="14.5" r="0.75" fill="currentColor"/>
     </svg>`,
 
     delete: `<svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -71,22 +78,25 @@ export class IconRegistry {
       <path d="M5 15L7 13L9 15L7 17L5 15Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>`,
 
+    // Jiggle/Randomize icon - Sparkle/shuffle pattern (suggests variation)
     random: `<svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="3" y="3" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.5"/>
-      <rect x="13" y="3" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.5"/>
-      <rect x="3" y="13" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.5"/>
-      <rect x="13" y="13" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.5"/>
-      <circle cx="10" cy="10" r="2" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M10 2V4M10 16V18M18 10H16M4 10H2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M15.5 4.5L14 6M6 14L4.5 15.5M15.5 15.5L14 14M6 6L4.5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <circle cx="10" cy="10" r="3" stroke="currentColor" stroke-width="1.5"/>
     </svg>`,
 
+    // Leaf shape icon - Stylized chip carving leaf motif
     leaf: `<svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M10 2C6 2 2 6 2 10C2 14 6 18 10 18C14 14 18 10 18 6C18 4 14 2 10 2Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M10 2L10 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-      <path d="M6 7C8 9 12 9 14 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M10 3C7 3 4 6 4 10C4 14 7 17 10 17C13 17 16 14 16 10C16 6 13 3 10 3Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M10 5V15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M7 8Q10 10 13 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M7 12Q10 10 13 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
     </svg>`,
 
+    // Triangle/Tri-Arc icon - Triangle with curved sides (chip carving shape)
     triangle: `<svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M10 2L18 16H2L10 2Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M10 3L17 16H3L10 3Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M6.5 9.5Q10 8 13.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
     </svg>`,
 
     move: `<svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -99,10 +109,11 @@ export class IconRegistry {
       <path d="M2 14L4.34315 15.6569L6 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>`,
 
+    // Mirror/Flip icon - Two triangles facing each other with center line
     mirror: `<svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M10 2V18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-      <path d="M6 6L2 10L6 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M14 6L18 10L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M10 2V18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="2 2"/>
+      <path d="M3 7L7 10L3 13V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M17 7L13 10L17 13V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
     </svg>`,
 
     duplicate: `<svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -121,22 +132,24 @@ export class IconRegistry {
       <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5"/>
     </svg>`,
 
+    // Save icon - Floppy disk (universal save icon)
     save: `<svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M15 7H16C16.5523 7 17 7.44772 17 8V16C17 16.5523 16.5523 17 16 17H4C3.44772 17 3 16.5523 3 16V8C3 7.44772 3.44772 7 4 7H5" stroke="currentColor" stroke-width="1.5"/>
-      <rect x="6" y="3" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.5"/>
-      <path d="M8 5H12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M15.5 17H4.5C3.67 17 3 16.33 3 15.5V4.5C3 3.67 3.67 3 4.5 3H13L17 7V15.5C17 16.33 16.33 17 15.5 17Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M13 3V7H17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="6" y="10" width="8" height="5" rx="1" stroke="currentColor" stroke-width="1.5"/>
     </svg>`,
 
+    // Save As icon - Floppy disk with pencil
     saveAs: `<svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M15 7H16C16.5523 7 17 7.44772 17 8V16C17 16.5523 16.5523 17 16 17H4C3.44772 17 3 16.5523 3 16V8C3 7.44772 3.44772 7 4 7H5" stroke="currentColor" stroke-width="1.5"/>
-      <rect x="6" y="3" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.5"/>
-      <path d="M8 5H12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-      <path d="M13 12L15 14L19 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M14 17H4.5C3.67 17 3 16.33 3 15.5V4.5C3 3.67 3.67 3 4.5 3H11L15 7V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M11 3V7H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M14 14L17 17M15.5 12.5L18.5 15.5L17 17L14 14L15.5 12.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>`,
 
+    // Load/Open icon - Folder with arrow (conventional open file)
     load: `<svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M4 17V9C4 8.44772 4.44772 8 5 8H7L9 6H15C15.5523 6 16 6.44772 16 7V17C16 17.5523 15.5523 18 15 18H5C4.44772 18 4 17.5523 4 17Z" stroke="currentColor" stroke-width="1.5"/>
-      <path d="M10 11V15M8 13L10 15L12 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M3 16V6C3 5.45 3.45 5 4 5H7L9 7H16C16.55 7 17 7.45 17 8V16C17 16.55 16.55 17 16 17H4C3.45 17 3 16.55 3 16Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M10 10V14M8 12H12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
     </svg>`,
 
     calibrate: `<svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">

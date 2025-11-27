@@ -1,62 +1,75 @@
 /**
  * Design Tokens - CSS Custom Properties
- * 
- * These CSS custom properties provide a foundation for theming
- * and can be overridden for dark mode or custom themes.
+ *
+ * Chip Carving Designer - A warm, craftsmanship-inspired design system
+ * with amber/copper accents evoking woodworking heritage.
  */
 
 :root {
   /* === COLOR TOKENS === */
 
-  /* Brand Colors */
-  --color-brand-50: #f0f9ff;
-  --color-brand-100: #e0f2fe;
-  --color-brand-200: #bae6fd;
-  --color-brand-300: #7dd3fc;
-  --color-brand-400: #38bdf8;
-  --color-brand-500: #0ea5e9;
-  --color-brand-600: #0284c7;
-  --color-brand-700: #0369a1;
-  --color-brand-800: #075985;
-  --color-brand-900: #0c4a6e;
+  /* Brand Colors - Warm Amber/Copper palette */
+  --color-brand-50: #fffbeb;
+  --color-brand-100: #fef3c7;
+  --color-brand-200: #fde68a;
+  --color-brand-300: #fcd34d;
+  --color-brand-400: #fbbf24;
+  --color-brand-500: #f59e0b;
+  --color-brand-600: #d97706;
+  --color-brand-700: #b45309;
+  --color-brand-800: #92400e;
+  --color-brand-900: #78350f;
+
+  /* Accent Colors - Teal for secondary actions */
+  --color-accent-400: #2dd4bf;
+  --color-accent-500: #14b8a6;
+  --color-accent-600: #0d9488;
 
   /* Semantic Colors */
-  --color-success: #22c55e;
-  --color-success-light: #dcfce7;
+  --color-success: #10b981;
+  --color-success-light: #d1fae5;
   --color-warning: #f59e0b;
   --color-warning-light: #fef3c7;
   --color-error: #ef4444;
   --color-error-light: #fee2e2;
+  --color-error-500: #ef4444;
+  --color-error-600: #dc2626;
 
-  /* Neutral Colors */
+  /* Warm Neutral Colors - with subtle brown undertones */
   --color-neutral-0: #ffffff;
-  --color-neutral-50: #fafafa;
-  --color-neutral-100: #f4f4f5;
-  --color-neutral-200: #e4e4e7;
-  --color-neutral-300: #d4d4d8;
-  --color-neutral-400: #a1a1aa;
-  --color-neutral-500: #71717a;
-  --color-neutral-600: #52525b;
-  --color-neutral-700: #3f3f46;
-  --color-neutral-800: #27272a;
-  --color-neutral-850: #1f1f23;
-  --color-neutral-900: #18181b;
-  --color-neutral-950: #09090b;
+  --color-neutral-50: #fafaf9;
+  --color-neutral-100: #f5f5f4;
+  --color-neutral-200: #e7e5e4;
+  --color-neutral-300: #d6d3d1;
+  --color-neutral-400: #a8a29e;
+  --color-neutral-500: #78716c;
+  --color-neutral-600: #57534e;
+  --color-neutral-700: #44403c;
+  --color-neutral-800: #292524;
+  --color-neutral-850: #1c1917;
+  --color-neutral-900: #171412;
+  --color-neutral-950: #0c0a09;
 
   /* Component-specific Colors */
-  --color-canvas-bg: var(--color-neutral-0);
-  --color-canvas-grid: #f1f5f9;
-  --color-canvas-border: #e2e8f0;
+  --color-canvas-bg: #fefdfb;
+  --color-canvas-grid: #f0ebe4;
+  --color-canvas-grid-major: #e0d6ca;
+  --color-canvas-border: #d4c8b8;
+  --color-canvas-axis: #78716c;
 
-  --color-toolbar-bg: var(--color-neutral-800);
-  --color-toolbar-hover: var(--color-neutral-700);
+  --color-toolbar-bg: linear-gradient(180deg, #2d2a26 0%, #1c1917 100%);
+  --color-toolbar-bg-solid: #252220;
+  --color-toolbar-hover: #3d3833;
   --color-toolbar-active: var(--color-brand-500);
-  --color-toolbar-border: var(--color-neutral-700);
+  --color-toolbar-border: rgba(255, 255, 255, 0.08);
+  --color-toolbar-border-bottom: rgba(0, 0, 0, 0.3);
+  --color-toolbar-glow: rgba(245, 158, 11, 0.15);
 
-  --color-shape-fill: #f8fafc;
-  --color-shape-stroke: #334155;
+  --color-shape-fill: #faf8f5;
+  --color-shape-stroke: #44403c;
   --color-shape-selected: var(--color-brand-500);
   --color-shape-hover: var(--color-brand-400);
+  --color-shape-selected-glow: rgba(245, 158, 11, 0.3);
 
   /* === SPACING TOKENS === */
   --spacing-xs: 0.25rem;
@@ -89,13 +102,21 @@
   --border-radius-xl: 1rem;
 
   /* === SHADOW TOKENS === */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+  --shadow-sm: 0 1px 2px 0 rgba(23, 20, 18, 0.08);
+  --shadow-base: 0 1px 3px 0 rgba(23, 20, 18, 0.12), 0 1px 2px -1px rgba(23, 20, 18, 0.08);
+  --shadow-md: 0 4px 6px -1px rgba(23, 20, 18, 0.12), 0 2px 4px -2px rgba(23, 20, 18, 0.08);
+  --shadow-lg: 0 10px 15px -3px rgba(23, 20, 18, 0.15), 0 4px 6px -4px rgba(23, 20, 18, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(23, 20, 18, 0.15), 0 8px 10px -6px rgba(23, 20, 18, 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgba(23, 20, 18, 0.35);
+  --shadow-inner: inset 0 2px 4px 0 rgba(23, 20, 18, 0.1);
+
+  /* Glow shadows for active/selected states */
+  --shadow-glow-brand: 0 0 20px -5px rgba(245, 158, 11, 0.4);
+  --shadow-glow-subtle: 0 0 15px -3px rgba(245, 158, 11, 0.2);
+
+  /* Toolbar-specific shadows */
+  --shadow-toolbar: 0 4px 20px -2px rgba(23, 20, 18, 0.25), 0 2px 8px -2px rgba(23, 20, 18, 0.15);
+  --shadow-toolbar-button: inset 0 1px 0 0 rgba(255, 255, 255, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
 
   /* === ANIMATION TOKENS === */
   --duration-fast: 150ms;
@@ -161,34 +182,58 @@
 }
 
 .btn-toolbar {
-  background-color: var(--color-toolbar-bg);
-  color: var(--color-neutral-100);
-  border-color: var(--color-toolbar-border);
-  box-shadow: var(--shadow-base);
+  background: var(--color-toolbar-bg-solid);
+  color: var(--color-neutral-300);
+  border: 1px solid var(--color-toolbar-border);
+  box-shadow: var(--shadow-toolbar-button);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-toolbar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, transparent 50%);
+  pointer-events: none;
 }
 
 .btn-toolbar:hover {
-  background-color: var(--color-toolbar-hover);
-  box-shadow: var(--shadow-md);
+  background: var(--color-toolbar-hover);
+  color: var(--color-neutral-100);
+  border-color: rgba(255, 255, 255, 0.12);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md), var(--shadow-glow-subtle);
 }
 
 .btn-toolbar:active {
+  transform: translateY(0);
   box-shadow: var(--shadow-inner);
 }
 
 .btn-toolbar.active {
-  background-color: var(--color-toolbar-active);
-  border-color: var(--color-toolbar-active);
-  color: var(--color-neutral-0);
+  background: linear-gradient(180deg, var(--color-brand-500) 0%, var(--color-brand-600) 100%);
+  border-color: var(--color-brand-600);
+  color: var(--color-neutral-950);
+  box-shadow: var(--shadow-glow-brand), var(--shadow-md);
+}
+
+.btn-toolbar.active::before {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+}
+
+.btn-toolbar.active:hover {
+  background: linear-gradient(180deg, var(--color-brand-400) 0%, var(--color-brand-500) 100%);
 }
 
 /* Toolbar Styles */
 .toolbar-design-system {
   display: flex;
-  background-color: var(--color-toolbar-bg);
-  border-radius: var(--border-radius-md);
-  box-shadow: var(--shadow-lg);
+  background: linear-gradient(180deg, #2d2a26 0%, #1c1917 100%);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-toolbar);
   border: 1px solid var(--color-toolbar-border);
+  border-bottom-color: var(--color-toolbar-border-bottom);
   padding: var(--spacing-xs);
   gap: var(--spacing-xs);
 }
@@ -196,7 +241,7 @@
 /* Focus Ring for Accessibility */
 .focus-ring:focus {
   outline: none;
-  box-shadow: 0 0 0 3px var(--color-brand-500);
+  box-shadow: 0 0 0 2px var(--color-neutral-950), 0 0 0 4px var(--color-brand-500);
 }
 
 /* Icon Container */
@@ -223,4 +268,10 @@
 
 .m-design-system {
   margin: var(--spacing-sm);
+}
+
+/* === CANVAS FRAME === */
+.canvas-frame {
+  box-shadow: inset 0 0 0 1px var(--color-canvas-border), inset 0 2px 8px -2px rgba(23, 20, 18, 0.1);
+  border-radius: var(--border-radius-sm);
 }

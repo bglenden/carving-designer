@@ -8,20 +8,20 @@
     />
     <title>Chip Carving Design System</title>
   </head>
-  <body class="bg-gray-900 text-gray-100 flex flex-col h-screen overflow-hidden">
-    <main class="flex-grow relative">
-      <canvas id="design-canvas" class="w-full h-full block bg-white pointer-events-auto"></canvas>
+  <body class="bg-neutral-900 text-neutral-100 flex flex-col h-screen overflow-hidden">
+    <main class="flex-grow relative bg-neutral-850">
+      <canvas id="design-canvas" class="w-full h-full block pointer-events-auto"></canvas>
       <div
         id="primary-toolbar"
-        class="absolute top-2 left-2 flex flex-col w-16 bg-gray-800 p-1 rounded-lg shadow-lg pointer-events-auto z-10"
+        class="absolute top-3 left-3 flex flex-col w-14 toolbar-base p-1.5 gap-1 pointer-events-auto z-10"
       ></div>
       <div
         id="status-bar"
-        class="absolute top-2 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-sm p-2 rounded-md font-mono w-auto text-center hidden pointer-events-auto z-10"
+        class="absolute top-3 left-1/2 -translate-x-1/2 toolbar-base text-neutral-200 text-sm px-4 py-2 font-medium tracking-wide hidden pointer-events-auto z-10"
       ></div>
       <div
         id="coordinate-display"
-        class="absolute bottom-2 right-2 bg-gray-800 text-white text-sm p-2 rounded-md font-mono w-56 text-center pointer-events-auto z-10"
+        class="absolute bottom-3 right-3 toolbar-base text-neutral-300 text-xs px-3 py-2 font-mono tracking-wider pointer-events-auto z-10"
       ></div>
     </main>
     <script type="module" src="./src/index.ts"></script>
